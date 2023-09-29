@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href={% static "style.css" %}>
+        <title>Nedelapare</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="head">
+                <img src={% static "./image/logo.svg" %}>
+                <p class="register-head-label">или</p>
+                <a class="register-head-button" href={% url 'signin' %}>
+                    <p>Войти</p>
+                </a>
+            </div>
+            <p class="register-h1">Регистрация</p>
+            <form action={% url 'api-reg' %} method="post">
+            {% csrf_token %}
+                <div class="register-checkboxes">
+                    <input type="radio" id="student" name="role" checked value=0>
+                    <label for="student">Студент</label>
+                    <input type="radio" id="teacher" name="role" value=1>
+                    <label for="teacher">Преподаватель</label>
+                </div>
+                <div class="register-input">
+                    <p>Отображаемое имя</p>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="register-input">
+                    <p>Email</p>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="register-input">
+                    <p>Пароль</p>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div class="register-input">
+                    <p>Повторите пароль</p>
+                    <input type="password" id="password2">
+                </div>
+                <input class="register-next-button" type="submit" value="Далее">
+            </form>
+        </div>
+    </body>
+</html>
