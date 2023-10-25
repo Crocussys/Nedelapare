@@ -3,13 +3,13 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href={% static "style.css" %}>
+        <link rel="stylesheet" href={% static "oursite/css/style.css" %}>
         <title>Nedelapare</title>
     </head>
     <body>
         <div class="container">
             <div class="head">
-                <img src={% static "./image/logo.svg" %}>
+                <img src={% static "oursite/img/logo.svg" %}>
                 <p class="register-head-label">или</p>
                 <a class="register-head-button" href={% url 'signin' %}>
                     <p>Войти</p>
