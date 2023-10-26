@@ -3,15 +3,15 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href={% static "oursite/css/style.css" %}>
+        <link rel="stylesheet" href={% static "./css/style.css" %}>
         <title>Nedelapare</title>
     </head>
     <body>
         <div class="container">
             <div class="head">
-                <img src={% static "oursite/img/logo.svg" %}>
+                <img src={% static "./img/logo.svg" %}>
             </div>
-            <img class="registration-img" src={% static "oursite/img/waiting.svg" %}>
+            <img class="registration-img" src={% static "./img/waiting.svg" %}>
             <p class="waiting-message">На почту {{ email }} отправлено письмо. Перейдите по ссылке в письме для подтверждения почты и завершения регистрации.</p>
             <p class="waiting-message2">Это окно можно закрыть</p>
         </div>
