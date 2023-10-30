@@ -171,7 +171,7 @@ body {
 }
 
 .register-checkboxes input:checked{
-    background-image: url("../img/checkbox.svg");
+    background-image: url("./img/checkbox.svg");
     background-repeat: no-repeat;
     background-position: 50%;
 }
