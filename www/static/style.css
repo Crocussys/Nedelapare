@@ -1,7 +1,25 @@
-@import url("NoirPro.css");
+@import url("fonts/NoirPro/stylesheet.css");
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* Main */
+
+:root {
+
+    /* Light theme */
+
+    --white-color: #fff;
+    --main-blue-color: #397DFF;
+    --light-gray-color: #B5D2FF;
+    --gray-color: #838383;
+    --light-blue-color: #5e96ff;
+    --white-blue-color: #82B3FF;
+    --back-blue-color: #78ADFE;
+
+    /* Dark theme */
+
+    --black-color: #000000;
+
+}
 
 body {
     margin: 0;
@@ -22,7 +40,7 @@ body {
 .background{
     width: 770px;
     margin: 70px auto;
-    background-color: #B5D2FF;
+    background-color: var(--light-gray-color);
     border-radius: 40px;
 }
 
@@ -37,7 +55,7 @@ body {
     width: 166px;
     height: 73px;
     font: bold 48px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .enter-title img{
@@ -52,7 +70,7 @@ body {
     height: 40px;
     border-radius: 10px;
     font: 20px 'NoirPro', sans-serif;
-    color: #838383;
+    color: var(--gray-color);
 }
 
 .singin-enter-button{
@@ -60,10 +78,10 @@ body {
     margin-bottom: 25px;
     width: 150px;
     height: 50px;
-    background-color: #397DFF;
+    background-color: var(--main-blue-color);
     border-radius: 20px;
     font: 300 24px 'NoirPro', sans-serif;
-    color: #fff;
+    color: var(--white-color);
     text-decoration: none;
     border: none;
     transition: 0.3s linear;
@@ -75,7 +93,7 @@ body {
     width: 160px;
     height: 60px;
     font-size: 26px;
-    background-color:#5e96ff;
+    background-color: var(--light-blue-color);
     cursor: pointer;
 }
 
@@ -83,7 +101,7 @@ body {
     padding: 25px 271px;
     padding-top: 0px;
     font: 300 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .singin-link-container p{
@@ -92,11 +110,11 @@ body {
 }
 
 .singin-link-container a{
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .singin-link-container a:hover{
-    color: #5e96ff;
+    color: var(--light-blue-color);
 }
 
 /* register */
@@ -104,7 +122,7 @@ body {
 .register-head-label{
     margin-left: 662px;
     font: 300 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .register-head-button{
@@ -112,7 +130,7 @@ body {
     margin-right: 0px;
     width: 150px;
     height: 50px;
-    background-color: #397DFF;
+    background-color: var(--main-blue-color);
     border-radius: 20px;
     transition: 0.3s linear;
     text-decoration: none;
@@ -121,11 +139,11 @@ body {
 .register-head-button p{
     margin: 7px 42px;
     font: 300 24px 'NoirPro', sans-serif;
-    color: #fff;
+    color: var(--white-color);
 }
 
 .register-head-button:hover{
-    background-color:#5e96ff;
+    background-color: var(--light-blue-color);
     cursor: pointer;
 }
 
@@ -133,7 +151,7 @@ body {
     margin: 20px 473px;
     margin-bottom: 0px;
     font: 500 36px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .register-checkboxes{
@@ -147,20 +165,20 @@ body {
     width: 25px;
     height: 25px;
     flex-shrink: 0;
-    border: 2px solid #397DFF;
+    border: 2px solid var(--main-blue-color);
     margin: auto 7px;
     margin-left: 0px;
 }
 
 .register-checkboxes input:checked{
-    background-image: url("./image/checkbox.svg");
+    background-image: url("./img/checkbox.svg");
     background-repeat: no-repeat;
     background-position: 50%;
 }
 
 .register-checkboxes label{
     font: 500 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
     margin-right: 16px;
 }
 
@@ -171,15 +189,15 @@ body {
 .register-input p{
     margin: 0px;
     font: 500 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .register-input input{
     margin-top: 6px;
     width: 570px;
     height: 40px;
-    background-color: #fff;
-    border: 1px solid #397DFF;
+    background-color: var(--white-color);
+    border: 1px solid var(--main-blue-color);
     border-radius: 10px;
 }
 
@@ -188,11 +206,11 @@ body {
     margin-top: 47px;
     width: 150px;
     height: 50px;
-    background-color: #397DFF;
+    background-color: var(--main-blue-color);
     border-radius: 20px;
     transition: 0.3s linear;
     font: 300 24px 'NoirPro', sans-serif;
-    color: #fff;
+    color: var(--white-color);
 }
 
 .register-next-button:hover{
@@ -213,14 +231,14 @@ body {
     margin: 45px 200px;
     margin-bottom: 0px;
     font: 500 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
     text-align: center;
 }
 
 .waiting-message2{
     margin: 20px 470px;
     font: 300 20px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 /* donereg */
@@ -231,7 +249,7 @@ body {
     margin: 45px 200px;
     margin-bottom: 0px;
     font: 500 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
     text-align: center;
 }
 
@@ -240,7 +258,7 @@ body {
     margin: 13px 510px;
     width: 150px;
     height: 50px;
-    background-color: #397DFF;
+    background-color: var(--main-blue-color);
     border-radius: 20px;
     transition: 0.3s linear;
     text-decoration: none;
@@ -249,11 +267,11 @@ body {
 .donereg-button p{
     margin: 7px 42px;
     font: 300 24px 'NoirPro', sans-serif;
-    color: #fff;
+    color: var(--white-color);
 }
 
 .donereg-button:hover{
-    background-color:#5e96ff;
+    background-color: var(--light-blue-color);
     cursor: pointer;
 }
 
@@ -264,7 +282,7 @@ body {
     top: 0px;
     width: 60px;
     height: 100%;
-    background-color: #78ADFE;
+    background-color: var(--light-blue-color);
 }
 
 .menu div{
@@ -274,7 +292,7 @@ body {
 }
 
 .menu-button:hover{
-    background-color: #397DFF;
+    background-color: var(--main-blue-color);
 }
 
 .menu img{
@@ -292,7 +310,7 @@ body {
     margin: 0px;
     margin-top: 26px;
     font: bold 40px 'Inter', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .schedule{
@@ -303,7 +321,7 @@ body {
 .schedule hr{
     border: none;
     height: 1px;
-    background-color: #82B3FF;
+    background-color: var(--white-blue-color);
 }
 
 .day{
@@ -314,21 +332,21 @@ body {
     margin: 0px;
     margin-right: 20px;
     font: normal 24px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .date{
     margin: 0px;
     padding-top: 5px;
     font: bold 24px 'Inter', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .empty{
     margin: 0;
     margin-top: 5px;
     font: normal 20px 'NoirPro', sans-serif;
-    color: #82B3FF;
+    color: var(--white-blue-color);
 }
 
 .lessons{
@@ -365,7 +383,7 @@ body {
     height: min-content;
     margin-right: 20px;
     margin-bottom: 20px;
-    background-color: #78ADFE;
+    background-color: var(--back-blue-color);
     border-radius: 20px 0px 20px 0px;
 }
 
@@ -374,7 +392,7 @@ body {
     max-width: 56px;
     text-align: center;
     font: bold 20px 'Inter', sans-serif;
-    color: #fff;
+    color: var(--white-color);
 }
 
 .lesson-name{
@@ -382,7 +400,7 @@ body {
     width: max-content;
     max-width: 340px;
     font: bold 20px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .other-info{
@@ -390,7 +408,7 @@ body {
     width: max-content;
     max-width: 340px;
     font: normal 16px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .home-work{
@@ -398,7 +416,7 @@ body {
     width: max-content;
     max-width: 450px;
     font: normal 16px 'NoirPro', sans-serif;
-    color: #397DFF;
+    color: var(--main-blue-color);
 }
 
 .border{
@@ -407,7 +425,7 @@ body {
     left: 0px;
     width: 100%;
     height: 100%;
-    border: 4px solid #397DFF;
+    border: 4px solid var(--main-blue-color);
     border-radius: 20px;
 }
 
@@ -417,10 +435,10 @@ body {
     height: 80px;
     bottom: 60px;
     right: 60px;
-    background-image: url("./image/add.svg");
+    background-image: url("./img/add.svg");
     transition: 0.3s linear;
 }
 
 .add-lesson:hover{
-    background-image:url("./image/add_active.svg")
+    background-image:url("./img/add_active.svg");
 }

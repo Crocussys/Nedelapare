@@ -3,7 +3,7 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href={% static "style.css" %}>
+        <link rel="stylesheet" href={% static "./style.css" %}>
         <title>Nedelapare</title>
     </head>
     <body>
@@ -11,9 +11,9 @@
             <div class="background">
                 <div class="enter-title">
                     <p>Вход в</p>
-                    <img src={% static "./image/mini_logo.svg" %}>
+                    <img src={% static "./img/mini_logo.svg" %}>
                 </div>
-                <form>
+                <form action="#" method="post">
                     <input class="singin-input" type="email" id="email" placeholder="Email"><br>
                     <input class="singin-input" type="password" id="password" placeholder="Пароль">
                     <input class="singin-enter-button" type="submit" value="Войти">

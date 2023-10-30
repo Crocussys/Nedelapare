@@ -3,20 +3,20 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href={% static "style.css" %}>
+        <link rel="stylesheet" href={% static "./style.css" %}>
         <title>Nedelapare</title>
     </head>
     <body>
         <div class="container">
             <div class="head">
-                <img src={% static "./image/logo.svg" %}>
+                <img src={% static "./img/logo.svg" %}>
                 <p class="register-head-label">или</p>
                 <a class="register-head-button" href={% url 'signin' %}>
                     <p>Войти</p>
                 </a>
             </div>
             <p class="register-h1">Регистрация</p>
-            <form action={% url 'api-reg' %} method="post">
+            <form action="#" method="post">
             {% csrf_token %}
                 <div class="register-checkboxes">
                     <input type="radio" id="student" name="role" checked value=0>
