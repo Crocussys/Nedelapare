@@ -1,4 +1,4 @@
-@import url("NoirPro.css");
+@import url("fonts/NoirPro/stylesheet.css");
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* Main */
@@ -435,10 +435,10 @@ body {
     height: 80px;
     bottom: 60px;
     right: 60px;
-    background-image: url("../img/add.svg");
+    background-image: url("./img/add.svg");
     transition: 0.3s linear;
 }
 
 .add-lesson:hover{
-    background-image:url("../img/add_active.svg");
+    background-image:url("./img/add_active.svg");
 }
