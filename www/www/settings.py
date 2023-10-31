@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Nedelapare_site.apps.NedelapareSiteConfig.'
+    'Nedelapare_site.apps.NedelapareSiteConfig'
 ]
 
 MIDDLEWARE = [
