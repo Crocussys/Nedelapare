@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 class User(models.Model):
@@ -14,12 +15,11 @@ class Student(models.Model):
 
 class Teachers(models.Model):
     user = models.UUIDField(primary_key=True)
-
-class Admins(models.Model):
-    user = models.UUIDField(primary_key=True)
+    groups = ArrayField(models.UUIDField())
 
 class University(models.Model):
     name = models.CharField(max_length=128)
+    faculties = ArrayField(models.UUIDField())
 
 class Faculty(models.Model):
     name = models.CharField(max_length=128)
@@ -28,6 +28,8 @@ class Group(models.Model):
     university = models.UUIDField()
     faculty = models.UUIDField()
     name = models.CharField(max_length=32)
+    lessons = ArrayField(models.UUIDField())
+    students = ArrayField(models.UUIDField())
     monday_first_week = models.DateField()
     headman = models.UUIDField(blank=True)
 
@@ -35,6 +37,7 @@ class Lessons(models.Model):
     subject = models.CharField(max_length=128)
     time = models.CharField(max_length=11)
     day_of_week = models.PositiveSmallIntegerField()
+    week_numbers = ArrayField(models.PositiveSmallIntegerField())
     type_of_work = models.CharField(max_length=32, blank=True)
     place = models.CharField(max_length=32, blank=True)
     teacher_id = models.UUIDField(blank=True)
