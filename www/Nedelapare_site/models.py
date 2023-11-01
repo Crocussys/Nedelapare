@@ -1,45 +1,57 @@
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=64)
-    name = models.CharField(max_length=32)
-    surname = models.CharField(max_length=32)
-    patronymic = models.CharField(max_length=32, blank=True)
-    permission = models.PositiveSmallIntegerField(default=0)
+    name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
 
 class Student(models.Model):
-    user = models.UUIDField(primary_key=True)
-    group = models.UUIDField()
+    user = models.BigIntegerField()
+    group = models.BigIntegerField()
 
-class Teachers(models.Model):
-    user = models.UUIDField(primary_key=True)
-    groups = ArrayField(models.UUIDField())
+class Teacher(models.Model):
+    user = models.BigIntegerField()
+    lesson = models.BigIntegerField()
 
 class University(models.Model):
     name = models.CharField(max_length=128)
-    faculties = ArrayField(models.UUIDField())
+
+    def __str__(self):
+        return self.name
 
 class Faculty(models.Model):
     name = models.CharField(max_length=128)
 
-class Group(models.Model):
-    university = models.UUIDField()
-    faculty = models.UUIDField()
-    name = models.CharField(max_length=32)
-    lessons = ArrayField(models.UUIDField())
-    students = ArrayField(models.UUIDField())
-    monday_first_week = models.DateField()
-    headman = models.UUIDField(blank=True)
+    def __str__(self):
+        return self.name
 
-class Lessons(models.Model):
+class UniversityToFaculty(models.Model):
+    university = models.BigIntegerField()
+    faculty = models.BigIntegerField()
+
+class Group(models.Model):
+    university = models.BigIntegerField()
+    faculty = models.BigIntegerField()
+    name = models.CharField(max_length=32)
+    monday_first_week = models.DateField()
+    head = models.BigIntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Lesson(models.Model):
+    group = models.BigIntegerField()
     subject = models.CharField(max_length=128)
+    date = models.DateField()
     time = models.CharField(max_length=11)
-    day_of_week = models.PositiveSmallIntegerField()
-    week_numbers = ArrayField(models.PositiveSmallIntegerField())
     type_of_work = models.CharField(max_length=32, blank=True)
     place = models.CharField(max_length=32, blank=True)
-    teacher_id = models.UUIDField(blank=True)
+    teacher_id = models.BigIntegerField(null=True, blank=True)
     teacher_name = models.CharField(max_length=96, blank=True)
     home_work = models.TextField(max_length=512, blank=True)
+
+    def __str__(self):
+        return self.subject
