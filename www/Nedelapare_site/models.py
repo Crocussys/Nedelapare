@@ -2,8 +2,10 @@ from django.db import models
 
 class User(models.Model):
     email = models.EmailField(unique=True)
+    confirmed_email = models.BooleanField(default=False)
     password = models.CharField(max_length=64)
     name = models.CharField(max_length=128)
+    position = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.name
