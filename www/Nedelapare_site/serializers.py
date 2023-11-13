@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from rest_framework import serializers
 
 from Nedelapare_site.models import *
@@ -5,12 +6,53 @@ from Nedelapare_site.models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'email', 'name', 'position')
 
-class EmailSerializer(serializers.ModelSerializer):
+class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'confirmed_email')
+        fields = '__all__'
+        extra_kwargs = {
+            'password': {'required': True}
+        }
+
+    def validate(self, attrs):
+        email = attrs.get('email', '').strip().lower()
+        user = User.objects.filter(email=email)
+        if user.exists():
+            raise serializers.ValidationError('User with this email id already exists.')
+        if user.position < 0 or user.position > 2:
+            raise serializers.ValidationError('Недопустимое значение')
+        return attrs
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(style={'input_type': 'password'}, trim_whitespace=False)
+
+    def validate(self, attrs):
+        email = attrs.get('email').lower()
+        password = attrs.get('password')
+
+        if not email or not password:
+            raise serializers.ValidationError("Please give both email and password.")
+
+        if not User.objects.filter(email=email).exists():
+            raise serializers.ValidationError('Email does not exist.')
+
+        user = authenticate(request=self.context.get('request'), email=email,
+                            password=password)
+        if not user:
+            raise serializers.ValidationError("Wrong Credentials.")
+
+        if not user.confirmed_email:
+            raise serializers.ValidationError('Email not confirmed')
+
+        attrs['user'] = user
+        return attrs
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
