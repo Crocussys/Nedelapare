@@ -21,7 +21,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user = User.objects.filter(email=email)
         if user.exists():
             raise serializers.ValidationError('User with this email id already exists.')
-        if user.position < 0 or user.position > 2:
+        position = attrs.get('position', 0)
+        if position < 0 or position > 2:
             raise serializers.ValidationError('Недопустимое значение')
         return attrs
 

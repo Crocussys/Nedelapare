@@ -66,6 +66,7 @@ class Login(knox_views.LoginView):
     permission_classes = (AllowAny, )
     serializer_class = LoginSerializer
 
+    @api_response
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
