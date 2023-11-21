@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template import loader
 
 
 def index(request):
@@ -9,6 +11,12 @@ def sign_in(request):
 
 def registration(request):
     return render(request, 'registration.html')
+
+def waiting(request):
+    return HttpResponse(loader.get_template("waiting.html").render({"email": request.GET.get("email", "")}, request))
+
+def done_reg(request):
+    return render(request, 'donereg.html')
 
 def schedule(request):
     if request.user.is_authenticated:  # Не работает!!!!!

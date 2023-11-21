@@ -46,20 +46,20 @@ class Registration(APIView):
         # Отправка письма
         return {
             'status': 'ОК',
-            'href': "#"
+            'href': f"/wait/?email={serializer.data.get('email', '')}"
         }
 
     @api_response
     def get(self, request):
         try:
-            user = User.objects.get(email=request.data.get('email', ''))
+            user = User.objects.get(id=request.data.get('id', -1))
         except ObjectDoesNotExist:
             raise SiteAPIException("Пользователь не найден")
         user.confirmed_email = True
         user.save()
         return {
             'status': 'ОК',
-            'href': "#"
+            'href': "/done/"
         }
 
 class Login(knox_views.LoginView):
@@ -69,11 +69,11 @@ class Login(knox_views.LoginView):
     @api_response
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.validated_data['user']
-            login(request, user)
-            response = super().post(request, format=None)
-        else:
+        try:
+            serializer.is_valid(raise_exception=True)
+        except:
             raise SiteAPIException('Ошибка авторизации', serializer.errors)
-
+        user = serializer.validated_data['user']
+        login(request, user)
+        response = super().post(request, format=None)
         return response.data
