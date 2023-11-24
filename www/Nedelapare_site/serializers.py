@@ -20,6 +20,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         email = attrs.get('email', '').strip().lower()
+        attrs['email'] = email
         user = CustomUser.objects.filter(email=email)
         if user.exists():
             raise serializers.ValidationError('User with this email id already exists.')
