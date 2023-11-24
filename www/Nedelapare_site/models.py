@@ -1,11 +1,33 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-class User(models.Model):
-    email = models.EmailField(unique=True)
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError("The email is not given.")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.confirmed_email = False
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('position', 2)
+        return self.create_user(email, password, **extra_fields)
+
+class User(AbstractBaseUser):
+    email = models.EmailField(max_length=254, unique=True)
     confirmed_email = models.BooleanField(default=False)
-    password = models.CharField(max_length=64)
-    name = models.CharField(max_length=128)
+    password = models.CharField(max_length=128)
+    name = models.CharField(max_length=256)
     position = models.PositiveSmallIntegerField()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name', 'position']
+
+    objects = UserManager()
 
     def __str__(self):
         return self.name

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTH_USER_MODEL = 'Nedelapare_site.User'
 
 ROOT_URLCONF = 'www.urls'
 
@@ -139,5 +142,6 @@ REST_FRAMEWORK = {
 }
 
 REST_KNOX = {
-    'USER_SERIALIZER': 'Nedelapare_site.serializers.UserSerializer'
+    'USER_SERIALIZER': 'Nedelapare_site.serializers.UserSerializer',
+    'TOKEN_TTL': timedelta(hours=48)
 }

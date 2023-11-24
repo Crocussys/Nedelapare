@@ -1,17 +1,19 @@
+from django.contrib.auth import login
 from rest_framework import status
 from rest_framework.exceptions import APIException
 from rest_framework.permissions import AllowAny
-from rest_framework.serializers import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import ObjectDoesNotExist
+from knox import views as knox_views
 
 from Nedelapare_site.serializers import *
 from Nedelapare_site.models import *
 
 class SiteAPIException(Exception):
-    def __init__(self, message):
+    def __init__(self, message, detail=None):
         self.message = message
+        self.detail = detail
 
 def api_response(func):
     def wrapper(*args, **kwargs):
@@ -23,7 +25,8 @@ def api_response(func):
         except SiteAPIException as e:
             return Response({
                 "error": True,
-                "error_message": e.message
+                "error_message": e.message,
+                "detail": e.detail
             }, status=status.HTTP_400_BAD_REQUEST)
         except APIException as e:
             raise e
@@ -34,22 +37,43 @@ class Registration(APIView):
 
     @api_response
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = CreateUserSerializer(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
-        except ValidationError as e:
-            raise SiteAPIException(e.detail)
+        except serializers.ValidationError as e:
+            raise SiteAPIException("Некорректные данные", e.detail)
         serializer.save()
+        # Отправка письма
+        return {
+            'status': 'ОК',
+            'href': f"/wait/?email={serializer.data.get('email', '')}"
+        }
 
     @api_response
     def get(self, request):
         try:
-            user = User.objects.get(email=request.data.get('email', ''))
-        except ObjectDoesNotExist as e:
+            user = User.objects.get(id=request.data.get('id', -1))
+        except ObjectDoesNotExist:
             raise SiteAPIException("Пользователь не найден")
         user.confirmed_email = True
         user.save()
         return {
             'status': 'ОК',
-            'href': "#"
+            'href': "/done/"
         }
+
+class Login(knox_views.LoginView):
+    permission_classes = (AllowAny, )
+    serializer_class = LoginSerializer
+
+    @api_response
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except:
+            raise SiteAPIException('Ошибка авторизации', serializer.errors)
+        user = serializer.validated_data['user']
+        login(request, user)
+        response = super().post(request, format=None)
+        return response.data

@@ -1,27 +1,25 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href={% static "./style.css" %}>
+        <link rel="stylesheet" href="/static/style.css">
         <title>Nedelapare</title>
     </head>
     <body>
         <div class="container">
             <div class="head">
-                <img src={% static "./img/logo.svg" %}>
+                <img src="/static/img/logo.svg">
                 <p class="register-head-label">или</p>
-                <a class="register-head-button" href={% url 'signin' %}>
+                <a class="register-head-button" href="../signin/">
                     <p>Войти</p>
                 </a>
             </div>
             <p class="register-h1">Регистрация</p>
-            <form action="#" method="post">
-            {% csrf_token %}
+            <form action="../api/reg/" method="post">
                 <div class="register-checkboxes">
-                    <input type="radio" id="student" name="role" checked value=0>
+                    <input type="radio" id="student" name="position" checked value=0>
                     <label for="student">Студент</label>
-                    <input type="radio" id="teacher" name="role" value=1>
+                    <input type="radio" id="teacher" name="position" value=1>
                     <label for="teacher">Преподаватель</label>
                 </div>
                 <div class="register-input">
