@@ -442,3 +442,183 @@ body {
 .add-lesson:hover{
     background-image:url("./img/add_active.svg");
 }
+
+
+
+.select-week{
+    margin-top: 20px;
+    font: 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);  
+    border: none;
+}
+
+.week-day{
+    margin: 10px 4px;
+    width: max-content;
+    font: bold 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.week-day:active{
+    color: var(--main-blue-color);
+}
+
+.days{
+    display: flex;
+    overflow-y: hidden;
+    margin-top: 20px;
+    width: max-content;
+}
+
+.border-week{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 90%;
+    height: 70%;
+    border: 1px solid var(--main-blue-color);
+    border-radius: 18px;
+}
+
+.time-lesson{
+    margin: 4px;
+    margin-top: 5px;
+    font: bold 28px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.field-place{
+    margin-top: 0px;
+    width: 200px;
+    height: 37px;
+    background-color: var(--white-color);
+    font: 20px 'NoirPro', sans-serif;
+    border: 1px solid var(--main-blue-color);
+    color: var(--main-blue-color);
+    border-radius: 20px;
+}
+
+.select-place{
+    margin-top: -23px;
+    width: 130px;
+    font: bold 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);  
+    border: none;
+}
+
+.select{
+    margin-top: -23px;
+    width: 130px;
+    font: bold 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);  
+    border: none;
+}
+
+.field-number{
+    margin-top: 0px;
+    width: 100px;
+    height: 37px;
+    background-color: var(--white-color);
+    font: 20px 'NoirPro', sans-serif;
+    border: 1px solid var(--main-blue-color);
+    color: var(--main-blue-color);
+    border-radius: 20px;
+}
+
+.field-name{
+    margin-top: 0px;
+    width: 400px;
+    height: 37px;
+    background-color: var(--white-color);
+    font: 20px 'NoirPro', sans-serif;
+    border: 1px solid var(--main-blue-color);
+    color: var(--main-blue-color);
+    border-radius: 20px;
+}
+
+.field-homework{
+    margin-top: -20px;
+    width: 1000px;
+    height: 100px;
+    background-color: var(--white-color);
+    font: 20px 'NoirPro', sans-serif;
+    border: 1px solid var(--main-blue-color);
+    color: var(--main-blue-color);
+    border-radius: 10px;
+}
+
+/*-------------*/
+
+.lasts{
+    display: flex;
+    overflow-y: hidden;
+    margin-top: 20px;
+    width: max-content;
+}
+
+.last{
+    position: relative;
+    margin: 0px;
+    margin-right: 270px;
+    margin-bottom: 10px;
+    max-width: 450px;
+    padding-bottom: 12px;
+    padding-right: 12px;
+    width: max-content;
+    height: max-content;
+}
+
+.cancel-button{
+    border-radius: 1px;
+    margin-top: 4px;
+    width: 150px;
+    height: 50px;
+    background-color: var(--white-color);
+    border-radius: 20px;
+    transition: 0.3s linear;
+    font: 300 24px 'NoirPro', sans-serif;
+    color: var(--light-blue-color);
+    border-color: var(--light-blue-color);
+}
+
+.cancel-button:hover{
+    background-color: var(--gray-color);
+    cursor: pointer;
+}
+
+.delete-button{
+    margin-left: 200px;
+    border: 0px;
+    margin-top: 4px;
+    width: 150px;
+    height: 50px;
+    background-color: var(--red-color);
+    border-radius: 20px;
+    transition: 0.3s linear;
+    font: 300 24px 'NoirPro', sans-serif;
+    color: var(--white-color);
+}
+
+.delete-button:hover{
+    background-color:#ff5e86;
+    cursor: pointer;
+}
+
+.save-button{
+    margin-left: -200px;
+    border: 0px;
+    margin-top: 4px;
+    width: 150px;
+    height: 50px;
+    background-color: var(--main-blue-color);
+    border-radius: 20px;
+    transition: 0.3s linear;
+    font: 300 24px 'NoirPro', sans-serif;
+    color: var(--white-color);
+}
+
+
+.save-button:hover{
+    background-color:#5e96ff;
+    cursor: pointer;
+}
