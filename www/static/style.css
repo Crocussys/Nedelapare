@@ -72,6 +72,7 @@ body {
     font: 20px 'NoirPro', sans-serif;
     color: var(--main-blue-color);
     outline: none;
+    text-indent: 10px;
 }
 
 .singin-enter-button{
@@ -203,6 +204,7 @@ body {
     font: 24px 'NoirPro', sans-serif; 
     outline: none;
     color: var(--main-blue-color);
+    text-indent: 10px;
 }
 
 .register-next-button{
