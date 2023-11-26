@@ -7,6 +7,7 @@
         <title>Nedelapare</title>
     </head>
     <body>
+        <div class="backdrop"></div>
         <div class="container">
             <div class="schedule-container">
                 <p class="group-name">20ГР1</p>
@@ -89,13 +90,12 @@
                 </div>
             </div>
         </div>
-        <div class="menu">
+        <div class="menu" onmouseover="openMenu()" onmouseout="closeMenu()">
             <div>
                 <img src={% static "./img/default_avatar.svg" %}>
                 <img src={% static "./img/border_avatar.svg" %}>
             </div>
             <div class="menu-button">
-                <img src={% static "./img/active_menu.svg" %}>
                 <img src={% static "./img/sheldue.svg" %}>
             </div>
             <div class="menu-button">
@@ -106,6 +106,34 @@
                 <img src={% static "./img/sing_out.svg" %}>
             </div>
         </div>
+        <script>
+            function openMenu(){
+            var menu = document.querySelector('.menu');
+            menu.style.width = '300px';
+            var backdrop = document.querySelector('.backdrop');
+            backdrop.style.display = 'block';
+            var lessons = document.querySelectorAll('.lessons');
+            lessons.forEach(function(lesson) {
+            lesson.style.filter = 'blur(5px)';
+            });
+            var but = document.querySelector('.menu-button')
+            but.style.width = '300px';
+            }
+
+            function closeMenu(){
+            var menu = document.querySelector('.menu');
+            var backdrop = document.querySelector('.backdrop');
+            menu.style.width = '60px';
+            backdrop.style.display = 'none';
+            var lessons = document.querySelectorAll('.lessons');
+            lessons.forEach(function(lesson) {
+            lesson.style.filter = 'none';
+            });
+            var but = document.querySelector('.menu-button')
+            but.style.width = '60px';
+            };
+
+        </script>
         <a class="add-lesson" href="./add.html"></a>
     </body>
 </html>
