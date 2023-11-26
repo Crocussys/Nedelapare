@@ -13,11 +13,15 @@ Docker Engine 19.03.0+
 
 `git clone https://github.com/Crocussys/Nedelapare.git` <br>
 или по ssh `git clone git@github.com:Crocussys/Nedelapare.git`
+
 2. Переходим в директорию
 
 `cd Nedelapare`
+
 3. Устанавливаем через Docker
 
 `docker compose build`
 # Запуск
+С помощью Docker
+
 `docker compose up`
