@@ -6,6 +6,7 @@
         <title>Nedelapare</title>
     </head>
     <body>
+        <script src="/static/js/script1.js"></script>
         <div class="backdrop"></div>
         <div class="container">
             <div class="schedule-container">
@@ -89,7 +90,7 @@
                 </div>
             </div>
         </div>
-        <div class="menu" onmouseover="openMenu()" onmouseout="closeMenu()">
+        <div class="menu" id="menu_interact">
             <div>
                 <img src="/static/img/default_avatar.svg">
                 <img src="/static/img/border_avatar.svg">
@@ -105,33 +106,6 @@
                 <img src="/static/img/sing_out.svg">
             </div>
         </div>
-        <script>
-            function openMenu(){
-            var menu = document.querySelector('.menu');
-            menu.style.width = '300px';
-            var backdrop = document.querySelector('.backdrop');
-            backdrop.style.display = 'block';
-            var lessons = document.querySelectorAll('.lessons');
-            lessons.forEach(function(lesson) {
-            lesson.style.filter = 'blur(5px)';
-            });
-            var but = document.querySelector('.menu-button')
-            but.style.width = '300px';
-            }
-
-            function closeMenu(){
-            var menu = document.querySelector('.menu');
-            var backdrop = document.querySelector('.backdrop');
-            menu.style.width = '60px';
-            backdrop.style.display = 'none';
-            var lessons = document.querySelectorAll('.lessons');
-            lessons.forEach(function(lesson) {
-            lesson.style.filter = 'none';
-            });
-            var but = document.querySelector('.menu-button')
-            but.style.width = '60px';
-            };
-        </script>
         <a class="add-lesson" href="#"></a>
     </body>
 </html>

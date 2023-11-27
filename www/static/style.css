@@ -207,6 +207,10 @@ body {
     text-indent: 10px;
 }
 
+::placeholder{
+    color: var(--gray-color)
+}
+
 .register-next-button{
     border: 0px;
     margin-top: 47px;
