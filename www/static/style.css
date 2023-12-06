@@ -14,6 +14,7 @@
     --light-blue-color: #5e96ff;
     --white-blue-color: #82B3FF;
     --back-blue-color: #78ADFE;
+    --red-color: #ff0000;
 
     /* Dark theme */
 
@@ -435,15 +436,49 @@ body {
     height: 80px;
     bottom: 60px;
     right: 60px;
-    background-image: url("./img/add.svg");
+    background-image: url("/img/add.svg");
     transition: 0.3s linear;
 }
 
 .add-lesson:hover{
-    background-image:url("./img/add_active.svg");
+    background-image:url("/img/add_active.svg");
 }
 
 
+
+/*mhjhjhjhjhjhjhjhjhjhjhj*/
+
+.subject{
+    margin: 0px;
+    margin-top: 26px;
+    font: bold 40px 'Inter', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.line-object{
+    display: flex;
+    margin-bottom: 2px;
+    position: relative;
+    margin: 0px;
+    margin-right: 2px;
+    padding-bottom: 12px;
+    padding-right: 12px;
+    width: max-content;
+    height: max-content;
+}
+
+.line{
+    display: flex;
+    overflow-y: hidden;
+    position: relative;
+    margin: 0px;
+    margin-right: 20px;
+    margin-top: 0px;
+    padding-bottom: 12px;
+    padding-right: 12px;
+    width: max-content;
+    height: max-content;
+}
 
 .select-week{
     margin-top: 20px;
@@ -474,11 +509,22 @@ body {
     position: absolute;
     top: 0px;
     left: 0px;
+    width: 80%;
+    height: 70%;
+    border: 1px solid var(--main-blue-color);
+    border-radius: 18px;
+}
+
+.border-type{
+    position: absolute;
+    top: 0px;
+    left: 0px;
     width: 90%;
     height: 70%;
     border: 1px solid var(--main-blue-color);
     border-radius: 18px;
 }
+
 
 .time-lesson{
     margin: 4px;
@@ -496,10 +542,16 @@ body {
     border: 1px solid var(--main-blue-color);
     color: var(--main-blue-color);
     border-radius: 20px;
+    font: 20px 'NoirPro', sans-serif;
+}
+
+.field-place:focus {
+    outline: none !important;
+    border:1px solid var(--main-blue-color);
 }
 
 .select-place{
-    margin-top: -23px;
+    margin-top: -15px;
     width: 130px;
     font: bold 20px 'NoirPro', sans-serif;
     color: var(--main-blue-color);  
@@ -525,6 +577,11 @@ body {
     border-radius: 20px;
 }
 
+.field-number:focus {
+    outline: none !important;
+    border:1px solid var(--main-blue-color);
+}
+
 .field-name{
     margin-top: 0px;
     width: 400px;
@@ -536,6 +593,11 @@ body {
     border-radius: 20px;
 }
 
+.field-name:focus {
+    outline: none !important;
+    border:1px solid var(--main-blue-color);
+}
+
 .field-homework{
     margin-top: -20px;
     width: 1000px;
@@ -545,6 +607,11 @@ body {
     border: 1px solid var(--main-blue-color);
     color: var(--main-blue-color);
     border-radius: 10px;
+}
+
+.field-homework:focus {
+    outline: none !important;
+    border:1px solid var(--main-blue-color);
 }
 
 /*-------------*/
