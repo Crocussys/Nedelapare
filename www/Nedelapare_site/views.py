@@ -26,8 +26,12 @@ def done_reg(request):
     return render(request, 'donereg.html')
 
 
-@api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @api_view(['GET'])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def schedule(request):
     return render(request, 'schedule.html')
+
+
+def add(request):
+    return render(request, 'add.html')
