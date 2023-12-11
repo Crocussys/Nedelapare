@@ -255,3 +255,22 @@ def get_lesson(request):
         "teacher": teacher,
         "home_work": lesson.home_work
     }, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def set_name(request):
+    instance = User.objects.get(id=request.user.id)
+    if request.data.get("name", None) is None:
+        return Response({
+            "error_message": "Отсутствуют обязательные параметры"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    serializer = UserSerializer(data=request.data, instance=instance)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_200_OK)
+    else:
+        return Response({
+            "error_message": "Недопустимое значение"
+        }, status=status.HTTP_400_BAD_REQUEST)
