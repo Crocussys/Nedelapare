@@ -260,13 +260,57 @@ def get_lesson(request):
 @api_view(['GET', 'POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
+def get_universities(request):
+    data = list()
+    queryset = University.objects.all()
+    for universe in queryset:
+        data.append({
+            "id": universe.id,
+            "name": universe.name
+        })
+    return Response({
+        "data": data
+    }, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_faculties(request):
+    university_id = request.data.get("university_id", None)
+    if university_id is None:
+        return Response({
+            "error_message": "Отсутствуют обязательные параметры"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    data = list()
+    queryset = UniversityToFaculty.objects.filter(university=university_id)
+    for query in queryset:
+        faculty = Faculty.objects.get(id=query.faculty)
+        data.append({
+            "id": faculty.id,
+            "name": faculty.name
+        })
+    return Response({
+        "data": data
+    }, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def set_name(request):
-    instance = User.objects.get(id=request.user.id)
+    user = request.user
+    instance = User.objects.get(id=user.id)
     if request.data.get("name", None) is None:
         return Response({
             "error_message": "Отсутствуют обязательные параметры"
         }, status=status.HTTP_400_BAD_REQUEST)
-    serializer = UserSerializer(data=request.data, instance=instance)
+    serializer = UserSerializer(data={
+        "id": user.id,
+        "email": user.email,
+        "name": request.data.get("name", None),
+        "position": user.position
+    }, instance=instance)
     if serializer.is_valid():
         serializer.save()
         return Response(status=status.HTTP_200_OK)

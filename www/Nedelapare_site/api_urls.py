@@ -12,5 +12,7 @@ urlpatterns = [
     path('getGroup/', api.get_group),
     path('getLessons/', api.get_lessons),
     path('getLesson/', api.get_lesson),
+    path('getUniversities/', api.get_universities),
+    path('getFaculties/', api.get_faculties),
     path('setName/', api.set_name)
 ]
