@@ -8,67 +8,63 @@
     <body>
         <div class="container">
             <p class="subject">Алгебра</p>
-            <select class = "select-week">
-                <option>Каждая неделя</option>
-                <option>Четная неделя</option>
-                <option>Нечетная неделя</option>
+            <select class = "select-week" onchange="handleSelectionChange()">
+                <option value="Каждая неделя">Каждая неделя</option>
+                <option value="Каждые N недель">Каждые N недель</option>
+                <option value="В недели">В недели</option>
             </select>
+            <div class="additionalField hidden">
+                <a class="week-day">Введите недели N или недели:</a>
+                <input type="text" class="field-place">
+            </div>
             <div class="line">
-                <div class="line-object">
-                    <a class="week-day">Пн</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(1)">
+                    <span>Пн</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Вт</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(2)">
+                    <span>Вт</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Ср</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(3)">
+                    <span>Ср</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Чт</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(4)">
+                    <span>Чт</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Пт</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(5)">
+                    <span>Пт</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Сб</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(6)">
+                    <span>Сб</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Вс</a>
-                    <div class="border-week"></div>
+                <div class="circle" onclick="handleCircleClick(7)">
+                    <span>Вс</span>
                 </div>
             </div>
-            <a class="time-lesson">8:00-9:35</a>
+            </form>
+                <input class="time-lesson" placeholder="8:00-9:35">
+            </form>
             <div class="line">
-                <div class="line-object">
-                    <a class="week-day">Лекция</a>
-                    <div class="border-type"></div>
+                <div class="rectangle" onclick="handleRectangleClick(1)">
+                    <span>Лекция</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Практика</a>
-                    <div class="border-type"></div>
+                <div class="rectangle" onclick="handleRectangleClick(2)">
+                    <span>Практика</span>
                 </div>
-                <div class="line-object">
-                    <a class="week-day">Лаб. работа</a>
-                    <div class="border-type"></div>
+                <div class="rectangle" onclick="handleRectangleClick(3)">
+                    <span>Лаб. работа</span>
                 </div>
                 <form>
-                    <input class="field-place" placeholder="Другое">
+                    <input class="field-place" placeholder="Другое" onclick="handleRectangleClick(4)">
                 </form>
             </div>
             <div class="line">
                 <div class="line-object">
-                    <a class="week-day">Лекция</a>
+                    <a class="week-day">Место</a>
                 </div>
                 <select class = "select-place">
                     <option>Аудитория</option>
-                    <option>Четная неделя</option>
-                    <option>Нечетная неделя</option>
+                    <option>Кабинет</option>
+                    <option>Другое</option>
                 </select>
                 <form>
                     <input class="field-number" placeholder="1356">
@@ -100,5 +96,6 @@
                 </div>
             </div>
         </div>
+        <script src="../static/script.js"></script>
     </body>
 </html>
