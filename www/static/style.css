@@ -510,7 +510,7 @@ body {
     left: 0;
     width: 80%;
     height: 70%;
-    margin: 10px 4px;
+    margin: 10px 7px;
     padding: 9px;
     display: flex;
     align-items: center;
@@ -531,8 +531,8 @@ body {
 .rectangle {
     top: 0;
     left: 0;
-    width: 80%;
-    height: 70%;
+    /* width: 80%; */
+    height: 24px;
     margin: 10px 4px;
     padding: 9px;
     display: flex;
@@ -575,8 +575,8 @@ body {
 
 
 .time-lesson{
-    margin: 4px;
-    margin-top: 5px;
+    margin: 1px;
+    margin-top: -10px;
     font: bold 28px 'NoirPro', sans-serif;
     width: 200px;
     height: 44px;
@@ -592,15 +592,24 @@ body {
 }
 
 .field-place{
-    margin-top: 10px;
+    /* margin-top: 10px;
     width: 200px;
     height: 44px;
     background-color: var(--white-color);
     font: 20px 'NoirPro', sans-serif;
     border: 1px solid var(--main-blue-color);
     color: var(--main-blue-color);
-    border-radius: 18px;
+    border-radius: 18px; */
+
     font: 20px 'NoirPro', sans-serif;
+    margin-top: 10px;
+    margin-left: 6px;
+    width: 370px;
+    height: 40px;
+    background-color: var(--white-color);
+    border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
+    color: var(--main-blue-color);
 }
 
 .field-place:focus {
@@ -626,13 +635,14 @@ body {
 
 .field-number{
     margin-top: 0px;
-    width: 100px;
-    height: 37px;
-    background-color: var(--white-color);
     font: 20px 'NoirPro', sans-serif;
+    margin-left: 6px;
+    width: 100px;
+    height: 40px;
+    background-color: var(--white-color);
     border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
     color: var(--main-blue-color);
-    border-radius: 20px;
 }
 
 .field-number:focus {
@@ -642,13 +652,14 @@ body {
 
 .field-name{
     margin-top: 0px;
-    width: 400px;
-    height: 37px;
-    background-color: var(--white-color);
     font: 20px 'NoirPro', sans-serif;
+    margin-left: 6px;
+    width: 370px;
+    height: 40px;
+    background-color: var(--white-color);
     border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
     color: var(--main-blue-color);
-    border-radius: 20px;
 }
 
 .field-name:focus {
@@ -713,7 +724,7 @@ body {
 }
 
 .delete-button{
-    margin-left: 200px;
+    margin-left: -250px;
     border: 0px;
     margin-top: 4px;
     width: 150px;
@@ -731,7 +742,7 @@ body {
 }
 
 .save-button{
-    margin-left: -200px;
+    margin-left: 145px;
     border: 0px;
     margin-top: 4px;
     width: 150px;
