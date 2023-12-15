@@ -6,6 +6,7 @@
         <title>Nedelapare</title>
     </head>
     <body>
+        <div class="backdrop"></div>
         <div class="container">
             <div class="schedule-container">
                 <p class="group-name">20ГР1</p>
@@ -88,23 +89,27 @@
                 </div>
             </div>
         </div>
-        <div class="menu">
-            <div>
+        <div class="menu" id="menu_interact">
+            <div class="menu-button" id="user">
                 <img src="/static/img/default_avatar.svg">
                 <img src="/static/img/border_avatar.svg">
+                <p class="menu-text" id="user-text">Тот кто захотит</p>
             </div>
-            <div class="menu-button">
-                <img src="/static/img/active_menu.svg">
+            <div class="menu-button" id="schedule">
                 <img src="/static/img/sheldue.svg">
+                <p class="menu-text" id="schedule-text">Расписание</p>
             </div>
-            <div class="menu-button">
+            <div class="menu-button" id="news">
                 <img src="/static/img/news.svg">
+                <p class="menu-text" id="news-text">Новости</p>
             </div>
             <div></div>
-            <div class="menu-button">
+            <div class="menu-button" id="exit">
                 <img src="/static/img/sing_out.svg">
+                <p class="menu-text" id="exit-text">Выйти</p>
             </div>
         </div>
+        <script src="/static/js/schedule.js"></script>
         <a class="add-lesson" href="../add"></a>
     </body>
 </html>

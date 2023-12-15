@@ -14,7 +14,7 @@
     --light-blue-color: #5e96ff;
     --white-blue-color: #82B3FF;
     --back-blue-color: #78ADFE;
-    --red-color: #ff0000;
+    --red-color: #FF3939;
     --pink-color: #ff83a2;
 
     /* Dark theme */
@@ -72,7 +72,9 @@ body {
     height: 40px;
     border-radius: 10px;
     font: 20px 'NoirPro', sans-serif;
-    color: var(--gray-color);
+    color: var(--main-blue-color);
+    outline: none;
+    text-indent: 10px;
 }
 
 .singin-enter-button{
@@ -201,6 +203,14 @@ body {
     background-color: var(--white-color);
     border: 1px solid var(--main-blue-color);
     border-radius: 10px;
+    font: 24px 'NoirPro', sans-serif; 
+    outline: none;
+    color: var(--main-blue-color);
+    text-indent: 10px;
+}
+
+::placeholder{
+    color: var(--gray-color)
 }
 
 .register-input input:focus{
@@ -290,23 +300,52 @@ body {
     width: 60px;
     height: 100%;
     background-color: var(--light-blue-color);
+    transition: width 0.3s;
 }
 
 .menu div{
     position: relative;
     width: 60px;
     height: 60px;
+    transition: width 0.3s;
 }
 
 .menu-button:hover{
     background-color: var(--main-blue-color);
+    transition: width 0.3s;
 }
 
 .menu img{
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 30px;
     transform: translate(-50%, -50%);
+}
+
+#schedule{
+    background-color: var(--white-color);
+}
+
+#exit-text{
+    color: var(--red-color);
+}
+
+#news-text{
+    color: var(--white-color);
+}
+
+#user-text{
+    color: var(--white-color);
+    text-decoration: underline;
+}
+
+.menu-text{
+    font: 24px 'NoirPro-Regular', sans-serif;
+    margin: 0px;
+    margin-left: 80px;
+    padding-top: 15px;
+    color: var(--main-blue-color);
+    opacity: 0;
 }
 
 .schedule-container{
@@ -444,13 +483,26 @@ body {
     right: 60px;
     background-image: url("/img/add.svg");
     transition: 0.3s linear;
+    border-radius: 60%;
 }
 
 .add-lesson:hover{
-    background-image:url("/img/add_active.svg");
+    background-image:url("./img/add_active.svg");
+    border-radius: 60%;
 }
 
-/*mhjhjhjhjhjhjhjhjhjhjhj*/
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    display: none;
+    z-index: 0; 
+
+    background-image:url("/img/add_active.svg");
+}
 
 .subject{
     margin: 0px;
@@ -592,15 +644,6 @@ body {
 }
 
 .field-place{
-    /* margin-top: 10px;
-    width: 200px;
-    height: 44px;
-    background-color: var(--white-color);
-    font: 20px 'NoirPro', sans-serif;
-    border: 1px solid var(--main-blue-color);
-    color: var(--main-blue-color);
-    border-radius: 18px; */
-
     font: 20px 'NoirPro', sans-serif;
     margin-top: 10px;
     margin-left: 6px;
@@ -683,8 +726,6 @@ body {
     outline: none !important;
     border:1px solid var(--main-blue-color);
 }
-
-/*-------------*/
 
 .lasts{
     display: flex;
