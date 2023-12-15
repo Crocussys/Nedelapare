@@ -19,7 +19,7 @@ services:
 
   django:
     build: .
-    command: bash -c "python ./www/manage.py migrate && python ./www/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python ./www/manage.py makemigrations && python ./www/manage.py migrate && python ./www/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/home/Nedelapare
     ports:
