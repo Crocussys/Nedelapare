@@ -3,7 +3,7 @@ version: "3.3"
 services:
 
   postgres:
-    image: postgres
+    image: postgres:16
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -11,15 +11,10 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    healthcheck:
-      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
-      interval: 10s
-      timeout: 3s
-      retries: 3
 
   django:
     build: .
-    command: bash -c "python ./www/manage.py makemigrations && python ./www/manage.py migrate && python ./www/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python ./www/manage.py makemigratioms $$ python ./www/manage.py migrate && python ./www/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/home/Nedelapare
     ports:
