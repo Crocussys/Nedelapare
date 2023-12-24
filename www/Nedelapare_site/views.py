@@ -1,9 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
-from knox.auth import TokenAuthentication
-from rest_framework.decorators import permission_classes, api_view, authentication_classes
-from rest_framework.permissions import IsAuthenticated
 
 
 def index(request):
@@ -26,9 +23,6 @@ def done_reg(request):
     return render(request, 'donereg.html')
 
 
-# @api_view(['GET'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
 def schedule(request):
     return render(request, 'schedule.html')
 

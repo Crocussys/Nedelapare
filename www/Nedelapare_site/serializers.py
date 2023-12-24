@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('id', 'email', 'name', 'position')
 
+
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -32,6 +33,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = CustomUser.objects.create_user(**validated_data)
         return user
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -58,35 +60,42 @@ class LoginSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 
+
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = '__all__'
+
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = '__all__'
 
+
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
         fields = '__all__'
+
 
 class FacultySerializer(serializers.ModelSerializer):
     class Meta:
         model = Faculty
         fields = '__all__'
 
+
 class UniversityToFacultySerializer(serializers.ModelSerializer):
     class Meta:
         model = UniversityToFaculty
         fields = '__all__'
 
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassGroup
         fields = '__all__'
+
 
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:

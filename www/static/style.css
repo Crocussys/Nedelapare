@@ -86,6 +86,7 @@ body {
     border-radius: 20px;
     font: 300 24px 'NoirPro', sans-serif;
     color: var(--white-color);
+    text-align: center;
     text-decoration: none;
     border: none;
     transition: 0.3s linear;
@@ -501,7 +502,7 @@ body {
     display: none;
     z-index: 0; 
 
-    background-image:url("/img/add_active.svg");
+    background-image:url("./img/add_active.svg");
 }
 
 .subject{

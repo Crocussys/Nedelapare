@@ -12,16 +12,15 @@
                     <p>Вход в</p>
                     <img src="/static/img/mini_logo.svg">
                 </div>
-                <form action="../api/login/" method="post">
-                    <input class="singin-input" type="email" id="email" placeholder="Email" name="email"><br>
-                    <input class="singin-input" type="password" id="password" placeholder="Пароль" name="password">
-                    <input class="singin-enter-button" type="submit" value="Войти">
-                </form>
+                <input class="singin-input" type="email" id="email" placeholder="Email"><br>
+                <input class="singin-input" type="password" id="password" placeholder="Пароль">
+                <input class="singin-enter-button" id="button" value="Войти">
                 <div class="singin-link-container">
                     <p>или</p>
                     <a href="../reg">Зарегистрироваться</a>
                 </div>
             </div>
         </div>
+        <script src="/static/js/signin.js"></script>
     </body>
 </html>

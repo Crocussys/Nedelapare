@@ -4,13 +4,14 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/static/style.css">
         <title>Nedelapare</title>
+        <script src="/static/js/auth.js"></script>
     </head>
     <body>
         <div class="backdrop"></div>
         <div class="container">
             <div class="schedule-container">
-                <p class="group-name">20ГР1</p>
-                <div class="schedule">
+                <p class="group-name" id="group">20ГР1</p>
+                <div class="schedule" id="schedule">
                     <div class="day">
                         <p class="day-of-the-week">Понедельник</p>
                         <p class="date">03.07</p>
@@ -88,6 +89,7 @@
                     </div>
                 </div>
             </div>
+            <script src="/static/js/schedule.js"></script>
         </div>
         <div class="menu" id="menu_interact">
             <div class="menu-button" id="user">
@@ -109,7 +111,7 @@
                 <p class="menu-text" id="exit-text">Выйти</p>
             </div>
         </div>
-        <script src="/static/js/schedule.js"></script>
+        <script src="/static/js/menu.js"></script>
         <a class="add-lesson" href="../add"></a>
     </body>
 </html>
