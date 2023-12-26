@@ -2,29 +2,27 @@ let group_title = document.getElementById("group");
 let schedule = document.getElementById("schedule");
 const days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 let xhr1 = new XMLHttpRequest();
-xhr1.open("GET", "../api/getGroup/");
+xhr1.open("POST", "../api/getGroup/");
 xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhr1.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
 xhr1.send();
 xhr1.onload = function() {
     group_title.innerHTML = JSON.parse(xhr1.response).name
 };
-var date = new Date();
+let date = new Date();
 let day = date.getDay();
-let start = new Date(date - day + 1 * 24 * 60 * 60 * 1000);
+let start = new Date(date - day * 24 * 60 * 60 * 1000 + 1 * 24 * 60 * 60 * 1000);
 start = start.toISOString();
-let end = new Date(date - day + 7 * 24 * 60 * 60 * 1000);
+let end = new Date(date - day * 24 * 60 * 60 * 1000 + 7 * 24 * 60 * 60 * 1000);
 end = end.toISOString();
 let xhr2 = new XMLHttpRequest();
-xhr2.open("GET", "../api/getLessons/");
+xhr2.open("POST", "../api/getLessons/");
 xhr2.setRequestHeader("Content-Type", "application/json");
 xhr2.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
-console.log(start.slice(0, start.indexOf("T")));
-console.log(end.slice(0, end.indexOf("T")));
 xhr2.send(JSON.stringify({"start": start.slice(0, start.indexOf("T")), "end": end.slice(0, end.indexOf("T"))}));
 xhr2.onload = function() {
     var i = 1;
-    for (let day of xhr2.response){
+    for (let day of JSON.parse(xhr2.response)){
         let day_html = document.createElement("div");
         day_html.className = "day";
         let p1 = document.createElement("p");
@@ -33,7 +31,8 @@ xhr2.onload = function() {
         day_html.append(p1);
         let p2 = document.createElement("p");
         p2.className = "date";
-        p2.innerHTML = start + 1;
+        let date_arr = day.day.split("-");
+        p2.innerHTML = date_arr[2] + "." + date_arr[1];
         day_html.append(p2);
         schedule.append(day_html);
         let lessons_html = document.createElement("div");
@@ -53,12 +52,14 @@ xhr2.onload = function() {
                 let time = document.createElement("div");
                 time.className = "time";
                 let p1 = document.createElement("p");
-                p1.innerHTML = lesson.time_start + " " + lesson.time_end;
+                let time_start = lesson.time_start;
+                let time_end = lesson.time_end;
+                p1.innerHTML = time_start.slice(0, time_start.lastIndexOf(":")) + " " + time_end.slice(0, time_end.lastIndexOf(":"));
                 time.append(p1);
                 head.append(time);
                 let body = document.createElement("div");
                 let name = document.createElement("p");
-                name.className = lesson-name;
+                name.className = "lesson-name";
                 name.innerHTML = lesson.subject;
                 body.append(name);
                 let type = document.createElement("p");
