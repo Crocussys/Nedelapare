@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Nedelapare</title>
+        <script src="/static/js/auth.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="profile-padding">
+                <p class="group-name" id="group-name"></p>
+                <div class="group-university">
+                    <p id="university"></p>
+                    <p id="faculty"></p>
+                </div>
+                <div class="group-settings">
+                    <div class="group-setting">
+                        <p>Понедельник первой недели:</p>
+                        <input type="date" id="monday_first_week">
+                    </div>
+                    <div class="group-setting">
+                        <p>Начало семестра:</p>
+                        <input type="date" id="start_semester">
+                    </div>
+                    <div class="group-setting">
+                        <p>Конец семестра:</p>
+                        <input type="date" id="end_semester">
+                    </div>
+                </div>
+                <div class="profile-save-button-div">
+                    <a class="profile-save-button">
+                        <p>Сохранить</p>
+                    </a>
+                </div>
+                <div class="group-students-count">
+                    <p class="group-students-count-text">Студенты:</p>
+                    <p class="group-students-count-number" id="students_count_number"></p>
+                </div>
+                <div class="group-students" id="students"></div>
+                </div>
+            </div>
+        </div>
+        <script src="/static/js/group.js"></script>
+        {% include "menu.html" %}
+    </body>
+</html>

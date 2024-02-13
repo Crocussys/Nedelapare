@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Nedelapare</title>
+        <script src="/static/js/auth.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <p class="subject">Алгебра</p>
+            <select class = "select-week" onchange="handleSelectionChange()">
+                <option value="Каждая неделя">Каждая неделя</option>
+                <option value="Каждые N недель">Каждые N недель</option>
+                <option value="В недели">В недели</option>
+            </select>
+            <div class="additionalField hidden">
+                <a class="week-day">Введите недели N или недели:</a>
+                <input type="text" class="field-place">
+            </div>
+            <div class="line">
+                <div class="circle" onclick="handleCircleClick(1)">
+                    <span>Пн</span>
+                </div>
+                <div class="circle" onclick="handleCircleClick(2)">
+                    <span>Вт</span>
+                </div>
+                <div class="circle" onclick="handleCircleClick(3)">
+                    <span>Ср</span>
+                </div>
+                <div class="circle" onclick="handleCircleClick(4)">
+                    <span>Чт</span>
+                </div>
+                <div class="circle" onclick="handleCircleClick(5)">
+                    <span>Пт</span>
+                </div>
+                <div class="circle" onclick="handleCircleClick(6)">
+                    <span>Сб</span>
+                </div>
+                <div class="circle" onclick="handleCircleClick(7)">
+                    <span>Вс</span>
+                </div>
+            </div>
+            </form>
+                <input class="time-lesson" placeholder="8:00-9:35">
+            </form>
+            <div class="line">
+                <div class="rectangle" onclick="handleRectangleClick(1)">
+                    <span>Лекция</span>
+                </div>
+                <div class="rectangle" onclick="handleRectangleClick(2)">
+                    <span>Практика</span>
+                </div>
+                <div class="rectangle" onclick="handleRectangleClick(3)">
+                    <span>Лаб. работа</span>
+                </div>
+                <form>
+                    <input class="field-place" placeholder="Другое" onclick="handleRectangleClick(4)">
+                </form>
+            </div>
+            <div class="line">
+                <div class="line-object">
+                    <a class="week-day">Место</a>
+                </div>
+                <select class = "select-place">
+                    <option>Аудитория</option>
+                    <option>Кабинет</option>
+                    <option>Другое</option>
+                </select>
+                <form>
+                    <input class="field-number">
+                </form>
+            </div>
+            <div class="line">
+                <div class="line-object">
+                    <a class="week-day">Преподаватель</a>
+                </div>
+                <form>
+                    <input class="field-name" placeholder="Фамилия Имя Отчество">
+                </form>
+            </div>
+            <div class="line-object">
+                <a class="week-day">Домашнее задание</a>
+            </div>
+            <form>
+                <textarea class="field-homework"></textarea>
+            </form>
+            <div class="lasts">
+                <div class="last">
+                    <input class="cancel-button" type="submit" value="Отмена">
+                </div>
+                <div class="last">
+                    <input class="delete-button" type="submit" value="Удалить">
+                </div>
+                <div class="last">
+                    <input class="save-button" type="submit" value="Сохранить">
+                </div>
+            </div>
+        </div>
+        <script src="/static/js/add.js"></script>
+    </body>
+</html>

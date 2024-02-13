@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Nedelapare</title>
+        <script src="/static/js/auth.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="profile-padding">
+                <div class="profile-main_info">
+                    <div class="profile-avatar">
+                        <img class="profile-avatar-img" src="/static/img/background_avatar.svg">
+                        <img class="profile-avatar-img" src="/static/img/default_avatar.svg">
+                        <img class="profile-avatar-img" src="/static/img/border_avatar.svg">
+                        <img class="profile-avatar-change" id="change-avatar-button" src="/static/img/change_circle.svg">
+                    </div>
+                    <div class="profile-infos">
+                        <input class="profile-username" id="username">
+                        <p class="profile-info" id="email"></p>
+                        <p class="profile-info" id="type"></p>
+                    </div>
+                </div>
+                <div class="profile-settings">
+                    <div>
+                        <p class="profile-setting-name">Группа:</p>
+                        <p class="profile-setting" id="group-name"></p>
+                        <img class="profile-setting-button" src="/static/img/change.svg" onclick="location.href='/group_change'">
+                    </div>
+                </div>
+                <div class="profile-buttons">
+                    <a class="profile-save-button">
+                        <p>Сохранить</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script src="/static/js/profile.js"></script>
+        {% include "menu.html" %}
+    </body>
+</html>

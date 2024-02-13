@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../static/style.css">
+        <title>Nedelapare</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="head">
+                <img src="../static/img/logo.svg">
+                <p class="register-head-label">или</p>
+                <a class="register-head-button" href="../signin/">
+                    <p>Войти</p>
+                </a>
+            </div>
+            <p class="register-h1">Регистрация</p>
+            <div class="register-checkboxes">
+                <input type="radio" id="student" name="position" checked>
+                <label for="student">Студент</label>
+                <input type="radio" id="teacher" name="position">
+                <label for="teacher">Преподаватель</label>
+            </div>
+            <div class="register-input">
+                <p>Отображаемое имя</p>
+                <input type="text" id="name">
+            </div>
+            <div class="register-input">
+                <p>Email</p>
+                <input type="email" id="email">
+            </div>
+            <div class="register-input">
+                <p>Пароль</p>
+                <input type="password" id="password">
+            </div>
+            <div class="register-input">
+                <p>Повторите пароль</p>
+                <input class="register-field" type="password" id="password2">
+            </div>
+            <input class="register-next-button" type="submit" value="Далее" onclick="load()">
+        </div>
+        <script src="/static/js/registration.js"></script>
+    </body>
+</html>

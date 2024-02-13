@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/style.css">
+        <title>Nedelapare</title>
+        <script src="/static/js/auth.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="schedule-container">
+                <p class="group-name" id="group-name"></p>
+                <div class="schedule" id="schedule"></div>
+            </div>
+            <script src="/static/js/schedule.js"></script>
+        </div>
+        {% include "menu.html" %}
+        <a class="add-lesson" href="../add"></a>
+    </body>
+</html>

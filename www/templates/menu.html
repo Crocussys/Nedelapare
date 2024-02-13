@@ -1,0 +1,69 @@
+<style>
+    #background-top{
+        height: {{ background_top_height }}px;
+    }
+    #background-bottom{
+        top: {{ background_bottom_top }}px;
+    }{% if menu == 0 %}
+    #user-text{
+        color: var(--main-blue-color);
+    }{% else %}
+    #user:hover{
+        background-color: var(--main-blue-color);
+        transition: width 0.3s;
+    }
+    #user-text{
+        color: var(--white-color);
+    }{% endif %}{% if menu == 1 %}
+    #schedule-text{
+        color: var(--main-blue-color);
+    }{% else %}
+    #schedule:hover{
+        background-color: var(--main-blue-color);
+        transition: width 0.3s;
+    }
+    #schedule-text{
+        color: var(--white-color);
+    }{% endif %}{% if menu == 2 %}
+    #group-text{
+        color: var(--main-blue-color);
+    }{% else %}
+    #group:hover{
+        background-color: var(--main-blue-color);
+        transition: width 0.3s;
+    }
+    #group-text{
+        color: var(--white-color);
+    }{% endif %}
+</style>
+<div class="menu" id="menu_interact">
+    <div id="background-top"></div>
+    <div id="background-bottom"></div>
+    <div class="menu-button" id="user"{% if menu != 0 %} onclick="location.href='/profile'"{% endif %}>
+        <div class="menu-img" id="menu-avatar">
+            <img class="avatar-background" src="/static/img/background_avatar.svg">
+            <img class="avatar-img" src="/static/img/default_avatar.svg">
+            <img class="avatar-border" src="/static/img/border_avatar.svg">
+        </div>
+        <p class="menu-text" id="user-text"></p>
+    </div>
+    <div class="menu-button" id="schedule"{% if menu != 1 %} onclick="location.href='/schedule'"{% endif %}>
+        <div class="menu-img">
+            <img src="/static/img/sheldue_{% if menu == 1 %}blue{% else %}white{% endif %}.svg">
+        </div>
+        <p class="menu-text" id="schedule-text">Расписание</p>
+    </div>
+    <div class="menu-button" id="group"{% if menu != 2 %} onclick="location.href='/group'"{% endif %}>
+        <div class="menu-img">
+            <img src="/static/img/group_{% if menu == 2 %}blue{% else %}white{% endif %}.svg">
+        </div>
+        <p class="menu-text" id="group-text">Группа</p>
+    </div>
+    <div class="menu-button" id="exit" onclick="logout()">
+        <div class="menu-img">
+            <img src="/static/img/sing_out.svg">
+        </div>
+        <p class="menu-text" id="exit-text">Выйти</p>
+    </div>
+    <script src="/static/js/menu.js"></script>
+</div>
