@@ -1,8 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
         <title>Nedelapare</title>
     </head>
     <body>
@@ -10,17 +11,17 @@
             <div class="background">
                 <div class="enter-title">
                     <p>Вход в</p>
-                    <img src="/static/img/mini_logo.svg">
+                    <img src="{% static 'img/mini_logo.svg' %}">
                 </div>
                 <input class="singin-input" type="email" id="email" placeholder="Email"><br>
                 <input class="singin-input" type="password" id="password" placeholder="Пароль">
                 <button class="singin-enter-button" id="button">Войти</button>
                 <div class="singin-link-container">
                     <p>или</p>
-                    <a href="../reg">Зарегистрироваться</a>
+                    <a href="/reg/">Зарегистрироваться</a>
                 </div>
             </div>
         </div>
-        <script src="/static/js/signin.js"></script>
+        <script src="{% static 'js/signin.js' %}"></script>
     </body>
 </html>

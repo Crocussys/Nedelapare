@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
         <title>Nedelapare</title>
-        <script src="/static/js/xhr_api.js"></script>
-        <script src="/static/js/auth.js"></script>
+        <script src="{% static 'js/xhr_api.js' %}"></script>
+        <script src="{% static 'js/auth.js' %}"></script>
     </head>
     <body>
         <div class="container">
             <div class="head">
-                <img src="../static/img/logo.svg">
+                <img src="{% static 'img/logo.svg' %}">
             </div>
             <p class="register-h1">Выбор группы</p>
             <div class="group_change-settings">
@@ -36,13 +37,13 @@
                     <div class="button" id="group_change-button-ok" onclick="send_group()">
                         <p>Подтвердить</p>
                     </div>
-                    <div class="button" id="group_change-button-cancel" onclick="location.href='../profile'">
+                    <div class="button" id="group_change-button-cancel" onclick="location.href='/profile'">
                         <p>Отмена</p>
                     </div>
                 </div>
                 <p class="group_change-text">Если в списке нет необходимого пункта, обратитесь в <a>поддержку</a>. Мы добавим ваш университет/институт/факультет/группу.</p>
             </div>
         </div>
-        <script src="/static/js/group_change.js"></script>
+        <script src="{% static 'js/group_change.js' %}"></script>
     </body>
 </html>

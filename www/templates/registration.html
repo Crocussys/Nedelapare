@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
         <title>Nedelapare</title>
     </head>
     <body>
         <div class="container">
             <div class="head">
-                <img src="../static/img/logo.svg">
+                <img src="{% static 'img/logo.svg' %}">
                 <p class="register-head-label">или</p>
-                <a class="register-head-button" href="../signin/">
+                <a class="register-head-button" href="/signin/">
                     <p>Войти</p>
                 </a>
             </div>
@@ -39,6 +40,6 @@
             </div>
             <input class="register-next-button" type="submit" value="Далее" onclick="load()">
         </div>
-        <script src="/static/js/registration.js"></script>
+        <script src="{% static 'js/registration.js' %}"></script>
     </body>
 </html>
