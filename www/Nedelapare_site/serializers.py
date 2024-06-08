@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 
 from Nedelapare_site.models import User as CustomUser, Student, Teacher, University, Faculty, UniversityToFaculty, \
-    Lesson, Group as ClassGroup
+    Lesson, Group as ClassGroup, Subject
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -105,4 +105,13 @@ class GroupSerializer(serializers.ModelSerializer):
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
+        fields = '__all__'
+
+    def get_date(self):
+        return self.data.get("date")
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
         fields = '__all__'

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound
 
 
 def index(request):
@@ -32,7 +33,19 @@ def schedule(request):
 
 
 def add(request):
-    return render(request, 'add.html')
+    return render(request, 'add.html', {
+        "position": int(request.user.position)
+    })
+
+
+def change(request):
+    lesson_id = request.GET.get("id", None)
+    if lesson_id is None:
+        return HttpResponseNotFound("<h1>Page not found</h1>")
+    return render(request, 'change.html', {
+        "id": lesson_id,
+        "position": int(request.user.position)
+    })
 
 
 def profile(request):

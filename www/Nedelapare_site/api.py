@@ -352,3 +352,361 @@ def set_group(request):
         return Response({
             "error_message": "Недопустимое значение"
         }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def add_lessons(request):
+    user = request.user
+    lessons = request.data.get("lessons", None)
+    if lessons is None:
+        return Response({
+            "error_message": "Отсутствуют обязательные параметры"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    if user.position == 0:
+        student = Student.objects.get(user=user.id)
+        group_id = student.group
+    elif user.position == 1:
+        teacher_id = user.id
+        teacher_name = None
+    _serializers = list()
+    for lesson in lessons:
+        if user.position == 0:
+            teacher_id = lesson.get("teacher_id", None)
+            teacher_name = lesson.get("teacher_name", None)
+        elif user.position == 1:
+            group_id = lesson.get("group_id", None)
+        else:
+            group_id = lesson.get("group_id", None)
+            teacher_id = lesson.get("teacher_id", None)
+            teacher_name = lesson.get("teacher_name", None)
+        subject_id = lesson.get("subject_id", None)
+        subject_name = lesson.get("subject_name", None)
+        _date = lesson.get("date", None)
+        time_start = lesson.get("time_start", None)
+        time_end = lesson.get("time_end", None)
+        type_of_work = lesson.get("type_of_work", "")
+        place = lesson.get("place", "")
+        if (group_id is None or (subject_id is None and subject_name is None) or _date is None or time_start is None or
+                time_end is None or (teacher_id is None and teacher_name is None)):
+            return Response({
+                "error_message": "Отсутствуют обязательные параметры"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            group = Group.objects.get(id=group_id)
+        except ObjectDoesNotExist:
+            return Response({
+                "error_message": "Группа не найдена"
+            }, status=status.HTTP_404_NOT_FOUND)
+        if subject_id is None:
+            subjects = Subject.objects.filter(name=subject_name)
+            if len(subjects) == 0:
+                serializer = SubjectSerializer(data={
+                    "name": subject_name
+                })
+                if serializer.is_valid(raise_exception=False):
+                    serializer.save()
+                else:
+                    return Response({
+                        "error_message": "Недопустимое имя предмета"
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                subject = serializer.instance
+            else:
+                subject = subjects[0]
+        else:
+            try:
+                subject = Subject.objects.get(id=subject_id)
+            except ObjectDoesNotExist:
+                return Response({
+                    "error_message": "Предмет не найден"
+                }, status=status.HTTP_404_NOT_FOUND)
+        data = {
+            "group": group.id,
+            "subject": subject.id,
+            "date": _date,
+            "time_start": time_start,
+            "time_end": time_end,
+            "type_of_work": type_of_work,
+            "place": place,
+            "home_work": None
+        }
+        if teacher_id is None:
+            data.update({"teacher_name": teacher_name})
+        else:
+            try:
+                teacher = Teacher.objects.get(id=teacher_id)
+            except ObjectDoesNotExist:
+                return Response({
+                    "error_message": "Преподаватель не найден"
+                }, status=status.HTTP_404_NOT_FOUND)
+            data.update({"teacher_id": teacher.id})
+        serializer = LessonSerializer(data=data)
+        if serializer.is_valid(raise_exception=False):
+            _serializers.append(serializer)
+        else:
+            return Response({
+                "error_message": "Недопустимое значение"
+            }, status=status.HTTP_400_BAD_REQUEST)
+    _serializers.sort(key=lambda x: x.validated_data.get("date"))
+    prev = None
+    for i in range(len(_serializers)):
+        serializer = _serializers[i]
+        serializer.validated_data.update({"previous": prev})
+        lesson = serializer.save()
+        if prev is not None:
+            prev_serializer = _serializers[i - 1]
+            prev_serializer.validated_data.update({"next": lesson.id})
+            prev_serializer.save()
+        prev = lesson.id
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def change_lessons(request):
+    user = request.user
+    if user.position == 0:
+        student = Student.objects.get(user=user.id)
+        group_id = student.group
+        teacher_id = request.data.get("teacher_id", None)
+        teacher_name = request.data.get("teacher_name", None)
+    elif user.position == 1:
+        group_id = request.data.get("group_id", None)
+        teacher_id = user.id
+        teacher_name = None
+    else:
+        group_id = request.data.get("group_id", None)
+        teacher_id = request.data.get("teacher_id", None)
+        teacher_name = request.data.get("teacher_name", None)
+    others = request.data.get("others", 0)
+    _date = request.data.get("date", None)
+    lessons_id = request.data.get("id", None)
+    subject_id = request.data.get("subject_id", None)
+    subject_name = request.data.get("subject_name", None)
+    time_start = request.data.get("time_start", None)
+    time_end = request.data.get("time_end", None)
+    type_of_work = request.data.get("type_of_work", "")
+    place = request.data.get("place", "")
+    home_work = request.data.get("home_work", None)
+    if (lessons_id is None or group_id is None or (subject_id is None and subject_name is None) or
+            (others == 0 and _date is None) or time_start is None or time_end is None or
+            (teacher_id is None and teacher_name is None)):
+        return Response({
+            "error_message": "Отсутствуют обязательные параметры"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        group = Group.objects.get(id=group_id)
+    except ObjectDoesNotExist:
+        return Response({
+            "error_message": "Группа не найдена"
+        }, status=status.HTTP_404_NOT_FOUND)
+    if subject_id is None:
+        subjects = Subject.objects.filter(name=subject_name)
+        if len(subjects) == 0:
+            serializer = SubjectSerializer(data={
+                "name": subject_name
+            })
+            if serializer.is_valid(raise_exception=False):
+                serializer.save()
+            else:
+                return Response({
+                    "error_message": "Недопустимое имя предмета"
+                }, status=status.HTTP_400_BAD_REQUEST)
+            subject = serializer.instance
+        else:
+            subject = subjects[0]
+    else:
+        try:
+            subject = Subject.objects.get(id=subject_id)
+        except ObjectDoesNotExist:
+            return Response({
+                "error_message": "Предмет не найден"
+            }, status=status.HTTP_404_NOT_FOUND)
+    try:
+        lesson = Lesson.objects.get(id=lessons_id)
+    except ObjectDoesNotExist:
+        return Response({
+            "error_message": "Занятие не найдено"
+        }, status=status.HTTP_404_NOT_FOUND)
+    if others != 0:
+        _date = lesson.date
+    data = {
+        "group": group.id,
+        "subject": subject.id,
+        "date": _date,
+        "time_start": time_start,
+        "time_end": time_end,
+        "type_of_work": type_of_work,
+        "place": place,
+        "home_work": home_work
+    }
+    if teacher_id is None:
+        data.update({"teacher_name": teacher_name})
+    else:
+        try:
+            teacher = Teacher.objects.get(id=teacher_id)
+        except ObjectDoesNotExist:
+            return Response({
+                "error_message": "Преподаватель не найден"
+            }, status=status.HTTP_404_NOT_FOUND)
+        data.update({"teacher_id": teacher.id})
+    serializer = LessonSerializer(lesson, data=data)
+    if serializer.is_valid(raise_exception=False):
+        data.pop("date")
+        data.pop("home_work")
+        if others == 0:
+            try:
+                prev_lesson = Lesson.objects.get(id=lesson.previous)
+                prev_data = {"previous": prev_lesson.id}
+            except ObjectDoesNotExist:
+                prev_lesson = None
+                prev_data = {"previous": None}
+            try:
+                next_lesson = Lesson.objects.get(id=lesson.next)
+                next_data = {"next": next_lesson.id}
+            except ObjectDoesNotExist:
+                next_lesson = None
+                next_data = {"next": None}
+            if prev_lesson is not None:
+                prev_lesson_serializer = LessonSerializer(prev_lesson, data=next_data)
+                if prev_lesson_serializer.is_valid(raise_exception=False):
+                    prev_lesson_serializer.save()
+            if next_lesson is not None:
+                next_lesson_serializer = LessonSerializer(next_lesson, data=prev_data)
+                if next_lesson_serializer.is_valid(raise_exception=False):
+                    next_lesson_serializer.save()
+            serializer.validated_data.update({
+                "previous": None,
+                "next": None
+            })
+        elif others == 1:
+            try:
+                prev_lesson = Lesson.objects.get(id=lesson.previous)
+                prev_lesson_serializer = LessonSerializer(prev_lesson, data={"next": None})
+                if prev_lesson_serializer.is_valid(raise_exception=False):
+                    prev_lesson_serializer.save()
+            except ObjectDoesNotExist:
+                pass
+            serializer.validated_data.update({"previous": None})
+            next_id = lesson.next
+            while next_id is not None:
+                try:
+                    next_lesson = Lesson.objects.get(id=next_id)
+                    next_id = next_lesson.next
+                    next_lesson_serializer = LessonSerializer(next_lesson, data=data)
+                    if next_lesson_serializer.is_valid(raise_exception=False):
+                        next_lesson_serializer.save()
+                except ObjectDoesNotExist:
+                    next_id = None
+        elif others == 2:
+            prev_id = lesson.previous
+            while prev_id is not None:
+                try:
+                    prev_lesson = Lesson.objects.get(id=prev_id)
+                    prev_id = prev_lesson.previous
+                    prev_lesson_serializer = LessonSerializer(prev_lesson, data=data)
+                    if prev_lesson_serializer.is_valid(raise_exception=False):
+                        prev_lesson_serializer.save()
+                except ObjectDoesNotExist:
+                    prev_id = None
+            next_id = lesson.next
+            while next_id is not None:
+                try:
+                    next_lesson = Lesson.objects.get(id=next_id)
+                    next_id = next_lesson.next
+                    next_lesson_serializer = LessonSerializer(next_lesson, data=data)
+                    if next_lesson_serializer.is_valid(raise_exception=False):
+                        next_lesson_serializer.save()
+                except ObjectDoesNotExist:
+                    next_id = None
+        else:
+            return Response({
+                "error_message": "Недопустимое значение"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return Response(status=status.HTTP_200_OK)
+    else:
+        return Response({
+            "error_message": "Недопустимое значение"
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def delete_lessons(request):
+    user = request.user
+    lessons_id = request.data.get("id", None)
+    others = request.data.get("others", 0)
+    if lessons_id is None:
+        return Response({
+            "error_message": "Отсутствуют обязательные параметры"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        lesson = Lesson.objects.get(id=lessons_id)
+    except ObjectDoesNotExist:
+        return Response({
+            "error_message": "Занятие не найдено"
+        }, status=status.HTTP_404_NOT_FOUND)
+    if others == 0:
+        try:
+            prev_lesson = Lesson.objects.get(id=lesson.previous)
+            prev_data = {"previous": prev_lesson.id}
+        except ObjectDoesNotExist:
+            prev_lesson = None
+            prev_data = {"previous": None}
+        try:
+            next_lesson = Lesson.objects.get(id=lesson.next)
+            next_data = {"next": next_lesson.id}
+        except ObjectDoesNotExist:
+            next_lesson = None
+            next_data = {"next": None}
+        if prev_lesson is not None:
+            prev_lesson_serializer = LessonSerializer(prev_lesson, data=next_data)
+            if prev_lesson_serializer.is_valid(raise_exception=False):
+                prev_lesson_serializer.save()
+        if next_lesson is not None:
+            next_lesson_serializer = LessonSerializer(next_lesson, data=prev_data)
+            if next_lesson_serializer.is_valid(raise_exception=False):
+                next_lesson_serializer.save()
+    elif others == 1:
+        try:
+            prev_lesson = Lesson.objects.get(id=lesson.previous)
+            prev_lesson_serializer = LessonSerializer(prev_lesson, data={"next": None})
+            if prev_lesson_serializer.is_valid(raise_exception=False):
+                prev_lesson_serializer.save()
+        except ObjectDoesNotExist:
+            pass
+        next_id = lesson.next
+        while next_id is not None:
+            try:
+                next_lesson = Lesson.objects.get(id=next_id)
+                next_id = next_lesson.next
+                next_lesson.delete()
+            except ObjectDoesNotExist:
+                next_id = None
+    elif others == 2:
+        prev_id = lesson.previous
+        while prev_id is not None:
+            try:
+                prev_lesson = Lesson.objects.get(id=prev_id)
+                prev_id = prev_lesson.previous
+                prev_lesson.delete()
+            except ObjectDoesNotExist:
+                prev_id = None
+        next_id = lesson.next
+        while next_id is not None:
+            try:
+                next_lesson = Lesson.objects.get(id=next_id)
+                next_id = next_lesson.next
+                next_lesson.delete()
+            except ObjectDoesNotExist:
+                next_id = None
+    else:
+        return Response({
+            "error_message": "Недопустимое значение"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    lesson.delete()
+    return Response(status=status.HTTP_200_OK)

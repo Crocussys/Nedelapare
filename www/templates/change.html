@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <title>Nedelapare</title>
+        <script src="{% static 'js/xhr_api.js' %}"></script>
+        <script src="{% static 'js/auth.js' %}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <input class="add-subject" id="subject"><br>
+            <div id="repetition">
+                <div class="add-week">
+                    <input class="add-week-day" id="one_day" type="date">
+                </div>
+            </div>
+            <div class="add-time">
+                <input class="add-timer" id="start_time" type="time" onkeyup="jump(this)">
+                <p class="add-time-spliter">-</p>
+                <input class="add-timer" id="end_time" type="time">
+            </div>
+            <div class="add-type" onclick="click_type()">
+                <div class="add-type-button" id="type-lecture" onclick="type_of_work_selected = 0">
+                    <p>Лекция</p>
+                </div>
+                <div class="add-type-button" id="type-practice" onclick="type_of_work_selected = 1">
+                    <p>Практика</p>
+                </div>
+                <div class="add-type-button" id="type-lab" onclick="type_of_work_selected = 2">
+                    <p>Лаб. работа</p>
+                </div>
+                <input class="add-short-input" placeholder="Другое" id="type-other" onclick="type_of_work_selected = 3">
+            </div>
+            <div class="add-place">
+                <select class="add-place-options" id="place-select">
+                    <option value="0">Другое</option>
+                    <option selected value="1">Аудитория</option>
+                    <option value="2">Кабинет</option>
+                    <option value="3">Online</option>
+                </select>
+                <input class="add-short-input" id="place-other">
+            </div>
+            <div class="add-teacher">
+                <p class="add-text">Преподаватель</p>
+                <input class="add-short-input" id="teacher">
+            </div>
+            <div class="add-margin">
+                <p class="add-text">Домашнее задание</p>
+                <textarea class="add-textarea" id="home_work"></textarea>
+            </div>
+            <div class="add-buttons">
+                <div class="add-cancle" onclick="location.href='/schedule'">
+                    <p>Отмена</p>
+                </div>
+                <div class="add-delete1" onclick="delete_lessons(0)">
+                    <p>Удалить</p>
+                </div>
+                <style>
+                    .add-save1{
+                        margin-left: 400px;
+                    }
+                </style>
+                <div class="add-save1" onclick="send_lessons(0)">
+                    <p>Применить</p>
+                </div>
+            </div>
+            <div class="add-buttons">
+                <div class="add-delete2" onclick="delete_lessons(1)">
+                    <p>Удалить это и все последующие</p>
+                </div>
+                <div class="add-save2" id="add-save2" onclick="send_lessons(1)">
+                    <p>Применить к этому и последующим</p>
+                </div>
+            </div>
+            <div class="add-buttons">
+                <div class="add-delete3" onclick="delete_lessons(2)">
+                    <p>Удалить все</p>
+                </div>
+                <div class="add-save3" id="add-save3" onclick="send_lessons(2)">
+                    <p>Применить ко всем</p>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/add.js' %}"></script>
+        <script src="{% static 'js/change.js' %}"></script>
+        <script>
+            function send_lessons(x){
+                let type_of_work = "";
+                if (type_of_work_selected < 3){
+                    type_of_work = ["Лекция", "Практика", "Лаб. работа"][type_of_work_selected];
+                }else{
+                    type_of_work = document.getElementById('type-other').value;
+                }
+                let place = "";
+                let place_elem = document.getElementById('place-select');
+                if (place_elem.value > 0){
+                    place += place_elem.children[place_elem.value].innerHTML + " ";
+                }
+                place += document.getElementById('place-other').value;
+                send("changeLessons", true, {
+                    "id": params.get("id"),
+                    "others": x,
+                    {% if position == 0 %}
+                    "teacher_name": teacher.value,
+                    {% else %}
+                    "group_id": null,
+                    {% endif %}
+                    "subject_name": subject.value,
+                    "date": document.getElementById('one_day').value,
+                    "time_start": start_time.value,
+                    "time_end": end_time.value,
+                    "type_of_work": type_of_work,
+                    "place": place,
+                    "home_work": document.getElementById('home_work').value
+                }, () => {})
+                // location.href='/schedule';
+                console.log("Изменил");
+            }
+        </script>
+    </body>
+</html>

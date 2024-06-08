@@ -17,5 +17,8 @@ urlpatterns = [
     path('getFaculties/', api.get_faculties),
     path('getGroups/', api.get_groups),
     path('setName/', api.set_name),
-    path('setGroup/', api.set_group)
+    path('setGroup/', api.set_group),
+    path('addLessons/', api.add_lessons),
+    path('changeLessons/', api.change_lessons),
+    path('deleteLessons/', api.delete_lessons)
 ]

@@ -5,17 +5,55 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'style.css' %}">
         <title>Nedelapare</title>
+        <script src="{% static 'js/xhr_api.js' %}"></script>
         <script src="{% static 'js/auth.js' %}"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="schedule-container">
-                <p class="group-name" id="group-name"></p>
-                <div class="schedule" id="schedule"></div>
+        <div onclick="restore()">
+            <div class="container">
+                <div class="schedule-container">
+                    <p class="group-name" id="group-name"></p>
+                    <div class="schedule-weeks">
+                        <div class="schedule-weeks-arrow" onclick="click_week(-1)">
+                            <img src="{% static 'img/left_arrow.svg' %}">
+                        </div>
+                        <p class="schedule-weeks-number_left" id="prev_week"></p>
+                        <p class="schedule-weeks-number_right" id="next_week"></p>
+                        <div class="schedule-weeks-arrow" onclick="click_week(1)">
+                            <img src="{% static 'img/right_arrow.svg' %}">
+                        </div>
+                    </div>
+                    <div class="schedule" id="schedule"></div>
+                </div>
             </div>
-            <script src="{% static 'js/schedule.js' %}"></script>
         </div>
         {% include "menu.html" %}
+        <div class="schedule-lesson-change" id="lesson-change">
+            <div class="schedule-lesson-change-div">
+                <p class="schedule-lesson-change-p1" id="change-name"></p>
+            </div>
+            <div class="schedule-lesson-change-div">
+                <p class="schedule-lesson-change-p2" id="change-time"></p>
+            </div>
+            <div class="schedule-lesson-change-div">
+                <p class="schedule-lesson-change-p3" id="change-group"></p>
+            </div>
+            <div class="schedule-lesson-change-div">
+                <p class="schedule-lesson-change-p3" id="change-type"></p>
+            </div>
+            <div class="schedule-lesson-change-div">
+                <p class="schedule-lesson-change-p3" id="change-place"></p>
+                <p class="schedule-lesson-change-p3" id="change-teacher"></p>
+            </div>
+            <div class="schedule-lesson-change-div">
+                <p class="schedule-lesson-change-p3">Домашнее задание:</p>
+                <p class="schedule-lesson-change-p3" id="change-home_work"></p>
+            </div>
+            <div class="schedule-lesson-change-button" id="change-button">
+                <p>Изменить</p>
+            </div>
+        </div>
         <a class="add-lesson" href="/add/"></a>
     </body>
+    <script src="{% static 'js/schedule.js' %}"></script>
 </html>

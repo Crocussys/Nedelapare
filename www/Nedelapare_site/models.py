@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('position', 2)
+        extra_fields.setdefault('confirmed_email', True)
         return self.create_user(email, password, **extra_fields)
 
 
@@ -35,7 +36,7 @@ class User(AbstractBaseUser):
 
 
 class Student(models.Model):
-    user = models.BigIntegerField()
+    user = models.BigIntegerField(unique=True)
     group = models.BigIntegerField()
 
 
@@ -88,6 +89,8 @@ class Lesson(models.Model):
     teacher_id = models.BigIntegerField(null=True, blank=True)
     teacher_name = models.CharField(max_length=96, null=True, blank=True)
     home_work = models.TextField(max_length=512, null=True, blank=True)
+    previous = models.BigIntegerField(null=True, default=None)
+    next = models.BigIntegerField(null=True, default=None)
 
     def __str__(self):
         return Subject.objects.get(id=self.subject).name

@@ -1,32 +1,78 @@
-let group_title = document.getElementById("group-name");
-let schedule = document.getElementById("schedule");
-const days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-let xhr_getGroup = new XMLHttpRequest();
-xhr_getGroup.open("POST", "/api/getGroup/");
-xhr_getGroup.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhr_getGroup.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
-xhr_getGroup.send();
-xhr_getGroup.onload = function() {
-    if (xhr_getGroup.status === 404){
+var days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+
+var group_title = document.getElementById("group-name");
+var schedule = document.getElementById("schedule");
+var lesson_change = document.getElementById("lesson-change");
+
+var date = new Date();
+
+var monday_first_week = 0;
+var isLoading = false;
+var week = 0;
+
+send("getGroup", true, {}, get_group)
+
+function get_group(response, status){
+    if (status === 404){
         location.href = "/group_change"
     }else{
-        group_title.innerHTML = JSON.parse(xhr_getGroup.response).name
+        let data = JSON.parse(response)
+        group_title.innerHTML = data.name;
+        monday_first_week = Date.parse(data.monday_first_week);
+        week = Math.ceil((date - monday_first_week) / 86400000 / 7);
+        click_week(0);
     }
-};
-let date = new Date();
-let day = date.getDay();
-let start = new Date(date - day * 24 * 60 * 60 * 1000 + 1 * 24 * 60 * 60 * 1000);
-start = start.toISOString();
-let end = new Date(date - day * 24 * 60 * 60 * 1000 + 7 * 24 * 60 * 60 * 1000);
-end = end.toISOString();
-let xhr_getLessons = new XMLHttpRequest();
-xhr_getLessons.open("POST", "/api/getLessons/");
-xhr_getLessons.setRequestHeader("Content-Type", "application/json");
-xhr_getLessons.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
-xhr_getLessons.send(JSON.stringify({"start": start.slice(0, start.indexOf("T")), "end": end.slice(0, end.indexOf("T"))}));
-xhr_getLessons.onload = function() {
+}
+
+function get_lesson(id){
+    send("getLesson", true, {
+        "id": id
+    }, function(response, status){
+        let data = JSON.parse(response);
+        document.getElementById("change-name").innerHTML = data["subject"];
+        let time_start = data["time_start"];
+        let time_end = data["time_end"];
+        document.getElementById("change-time").innerHTML = time_start.slice(0, time_start.lastIndexOf(":")) + "-" + time_end.slice(0, time_end.lastIndexOf(":"));
+        document.getElementById("change-group").innerHTML = data["group"];
+        document.getElementById("change-type").innerHTML = data["type_of_work"];
+        document.getElementById("change-place").innerHTML = data["place"];
+        document.getElementById("change-teacher").innerHTML = "Преподаватель: " + data["teacher"]["name"];
+        document.getElementById("change-home_work").innerHTML = data["home_work"];
+        document.getElementById("change-button").onclick = () => {
+            location.href='/change/?id=' + id;
+        }
+        lesson_change.style.width = "40%";
+        lesson_change.style.padding = "35px 105px";
+    })
+}
+
+function click_week(x){
+    if (x === -1){
+        week -= 1;
+    }else if (x === 1){
+        week += 1;
+    }
+    let start = new Date(monday_first_week + (week - 1) * 7 * 24 * 60 * 60 * 1000);
+    let end = new Date(monday_first_week + week * 7 * 24 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000);
+    let start_str = start.toISOString();
+    let end_str = end.toISOString();
+    document.getElementById("prev_week").innerHTML = week - 1;
+    document.getElementById("next_week").innerHTML = week + 1;
+    send("getLessons", true, {
+        "start": start_str.slice(0, start_str.indexOf("T")),
+        "end": end_str.slice(0, end_str.indexOf("T"))
+    }, get_lessons);
+}
+
+function restore(){
+    lesson_change.style.width = "0px";
+    lesson_change.style.padding = "0px";
+}
+
+function get_lessons(response, status) {
+    schedule.innerHTML = "";
     var i = 1;
-    for (let day of JSON.parse(xhr_getLessons.response)){
+    for (let day of JSON.parse(response)){
         let day_html = document.createElement("div");
         day_html.className = "day";
         let p1 = document.createElement("p");
@@ -51,6 +97,8 @@ xhr_getLessons.onload = function() {
             for (lesson of lessons){
                 let lesson_html = document.createElement("div");
                 lesson_html.className = "lesson";
+                lesson_html.value = lesson.id;
+                lesson_html.onclick = () => {get_lesson(lesson_html.value)};
                 let head = document.createElement("div");
                 head.className = "lesson-head";
                 let time = document.createElement("div");
@@ -78,9 +126,6 @@ xhr_getLessons.onload = function() {
                 }
                 head.append(body);
                 lesson_html.append(head)
-                let border = document.createElement("div");
-                border.className = "border";
-                lesson_html.append(border);
                 lessons_html.append(lesson_html);
             }
         }

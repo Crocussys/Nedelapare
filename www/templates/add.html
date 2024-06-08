@@ -5,99 +5,161 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'style.css' %}">
         <title>Nedelapare</title>
+        <script src="{% static 'js/xhr_api.js' %}"></script>
         <script src="{% static 'js/auth.js' %}"></script>
     </head>
     <body>
         <div class="container">
-            <p class="subject">Алгебра</p>
-            <select class = "select-week" onchange="handleSelectionChange()">
-                <option value="Каждая неделя">Каждая неделя</option>
-                <option value="Каждые N недель">Каждые N недель</option>
-                <option value="В недели">В недели</option>
+            <input class="add-subject" id="subject" value="Новый предмет"><br>
+            <select class="add-week-options" id="week-select">
+                <option value="0">Единожды</option>
+                <option selected value="1">Каждую неделю</option>
+                <option value="2">Чётные/Нечётные недели</option>
+                <option value="3">Каждые N недель</option>
+                <option value="4">В недели</option>
             </select>
-            <div class="additionalField hidden">
-                <a class="week-day">Введите недели N или недели:</a>
-                <input type="text" class="field-place">
-            </div>
-            <div class="line">
-                <div class="circle" onclick="handleCircleClick(1)">
-                    <span>Пн</span>
-                </div>
-                <div class="circle" onclick="handleCircleClick(2)">
-                    <span>Вт</span>
-                </div>
-                <div class="circle" onclick="handleCircleClick(3)">
-                    <span>Ср</span>
-                </div>
-                <div class="circle" onclick="handleCircleClick(4)">
-                    <span>Чт</span>
-                </div>
-                <div class="circle" onclick="handleCircleClick(5)">
-                    <span>Пт</span>
-                </div>
-                <div class="circle" onclick="handleCircleClick(6)">
-                    <span>Сб</span>
-                </div>
-                <div class="circle" onclick="handleCircleClick(7)">
-                    <span>Вс</span>
+            <div id="repetition">
+                <div class="add-week" id="add_week" onclick="click_day()">
+                    <div class="add-week-days" onclick="click_days(0)">
+                        <p>Пн</p>
+                    </div>
+                    <div class="add-week-days" onclick="click_days(1)">
+                        <p>Вт</p>
+                    </div>
+                    <div class="add-week-days" onclick="click_days(2)">
+                        <p>Ср</p>
+                    </div>
+                    <div class="add-week-days" onclick="click_days(3)">
+                        <p>Чт</p>
+                    </div>
+                    <div class="add-week-days" onclick="click_days(4)">
+                        <p>Пт</p>
+                    </div>
+                    <div class="add-week-days" onclick="click_days(5)">
+                        <p>Сб</p>
+                    </div>
+                    <div class="add-week-days" onclick="click_days(6)">
+                        <p>Вс</p>
+                    </div>
                 </div>
             </div>
-            </form>
-                <input class="time-lesson" placeholder="8:00-9:35">
-            </form>
-            <div class="line">
-                <div class="rectangle" onclick="handleRectangleClick(1)">
-                    <span>Лекция</span>
-                </div>
-                <div class="rectangle" onclick="handleRectangleClick(2)">
-                    <span>Практика</span>
-                </div>
-                <div class="rectangle" onclick="handleRectangleClick(3)">
-                    <span>Лаб. работа</span>
-                </div>
-                <form>
-                    <input class="field-place" placeholder="Другое" onclick="handleRectangleClick(4)">
-                </form>
+            <div class="add-time">
+                <input class="add-timer" id="start_time" type="time" value="09:00" onkeyup="jump(this)">
+                <p class="add-time-spliter">-</p>
+                <input class="add-timer" id="end_time" type="time" value="10:35">
             </div>
-            <div class="line">
-                <div class="line-object">
-                    <a class="week-day">Место</a>
+            <div class="add-type" onclick="click_type()">
+                <div class="add-type-button" id="type-lecture" onclick="type_of_work_selected = 0">
+                    <p>Лекция</p>
                 </div>
-                <select class = "select-place">
-                    <option>Аудитория</option>
-                    <option>Кабинет</option>
-                    <option>Другое</option>
+                <div class="add-type-button" id="type-practice" onclick="type_of_work_selected = 1">
+                    <p>Практика</p>
+                </div>
+                <div class="add-type-button" id="type-lab" onclick="type_of_work_selected = 2">
+                    <p>Лаб. работа</p>
+                </div>
+                <input class="add-short-input" placeholder="Другое" id="type-other" onclick="type_of_work_selected = 3">
+            </div>
+            <div class="add-place">
+                <select class="add-place-options" id="place-select">
+                    <option value="0">Другое</option>
+                    <option selected value="1">Аудитория</option>
+                    <option value="2">Кабинет</option>
+                    <option value="3">Online</option>
                 </select>
-                <form>
-                    <input class="field-number">
-                </form>
+                <input class="add-short-input" id="place-other">
             </div>
-            <div class="line">
-                <div class="line-object">
-                    <a class="week-day">Преподаватель</a>
-                </div>
-                <form>
-                    <input class="field-name" placeholder="Фамилия Имя Отчество">
-                </form>
+            <div class="add-teacher">
+                <p class="add-text">Преподаватель</p>
+                <input class="add-short-input" id="teacher">
             </div>
-            <div class="line-object">
-                <a class="week-day">Домашнее задание</a>
-            </div>
-            <form>
-                <textarea class="field-homework"></textarea>
-            </form>
-            <div class="lasts">
-                <div class="last">
-                    <input class="cancel-button" type="submit" value="Отмена">
+            <div class="add-buttons">
+                <div class="add-cancle" onclick="location.href='/schedule'">
+                    <p>Отмена</p>
                 </div>
-                <div class="last">
-                    <input class="delete-button" type="submit" value="Удалить">
-                </div>
-                <div class="last">
-                    <input class="save-button" type="submit" value="Сохранить">
+                <div class="add-save1" onclick="send_lessons()">
+                    <p>Сохранить</p>
                 </div>
             </div>
         </div>
         <script src="{% static 'js/add.js' %}"></script>
+        <script>
+            function send_lessons(){
+                {% if position == 0 %}
+                send("getGroup", true, {}, send_callback)
+                {% else %}
+
+                {% endif %}
+            }
+
+            function send_callback(response, status){
+                response = JSON.parse(response);
+                let type_of_work = "";
+                if (type_of_work_selected < 3){
+                    type_of_work = ["Лекция", "Практика", "Лаб. работа"][type_of_work_selected];
+                }else{
+                    type_of_work = document.getElementById('type-other').value;
+                }
+                let place = "";
+                let place_elem = document.getElementById('place-select');
+                if (place_elem.value > 0){
+                    place += place_elem.children[place_elem.value].innerHTML + " ";
+                }
+                place += document.getElementById('place-other').value;
+                let dates = [];
+                if (week_select.value == 0){
+                    dates.push(document.getElementById('one_day').value);
+                }else if (week_select.value == 1){
+                    dates = get_dates(response, 1);
+                }else if (week_select.value == 2){
+                    if (even_odd_selected == 0){
+                        dates = get_dates(response, 2, null, true, false);
+                    }else{
+                        dates = get_dates(response, 2, null, false, true);
+                    }
+                }else if (week_select.value == 3){
+                    dates = get_dates(response, document.getElementById('inp-week-1').value, start=document.getElementById('inp-week-2').value);
+                }else if (week_select.value == 4){
+                    let start_semester = Date.parse(response["start_semester"])
+                    let end_semester = Date.parse(response["end_semester"])
+                    let pointer = Date.parse(response["monday_first_week"])
+                    let week = 1;
+                    let weeks = document.getElementById('inp-weeks').value.split(" ")
+                    for (let i = 0; i < weeks.length; i++){
+                        let week_pointer = Number(weeks[i]);
+                        pointer += (week_pointer - week) * 7 * 24 * 60 * 60 * 1000;
+                        week = week_pointer;
+                        for (let i = 0; i < day_selected.length; i++){
+                            let day = new Date(pointer + day_selected[i] * 24 * 60 * 60 * 1000);
+                            if (day >= start_semester){
+                                let day_str = day.toISOString();
+                                dates.push(day_str.slice(0, day_str.indexOf("T")));
+                            }
+                        }
+                    }
+                }
+                let lessons = [];
+                for (let i = 0; i < dates.length; i++){
+                    lessons.push({
+                        {% if position == 0 %}
+                        "teacher_name": teacher.value,
+                        {% else %}
+                        "group_id": null,
+                        {% endif %}
+                        "subject_name": subject.value,
+                        "date": dates[i],
+                        "time_start": start_time.value,
+                        "time_end": end_time.value,
+                        "type_of_work": type_of_work,
+                        "place": place
+                    });
+                }
+                send("addLessons", true, {
+                    "lessons": lessons
+                }, () => {})
+                // location.href='/schedule';
+                console.log("Сохранил");
+            }
+        </script>
     </body>
 </html>

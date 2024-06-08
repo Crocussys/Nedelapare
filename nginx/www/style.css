@@ -16,7 +16,8 @@
     --back-blue-color: #78ADFE;
     --red-color: #FF3939;
     --pink-color: #ff83a2;
-
+    --transparent-color: #ff000000;
+    --light-light-gray-color: #E3E3E3;
     /* Dark theme */
 
     --black-color: #000000;
@@ -29,6 +30,7 @@ body {
 
 .container{
     margin: 0px auto 100px;
+    padding: 0px 40px;
     width: 1170px;
 }
 
@@ -462,10 +464,13 @@ body {
     padding-right: 12px;
     width: max-content;
     height: max-content;
+    border: 4px solid var(--main-blue-color);
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .lesson:hover{
-    background-color: var(--white-blue-color);
+    background-color: var(--light-gray-color);
 }
 
 .lesson-head{
@@ -478,7 +483,7 @@ body {
     margin-right: 20px;
     margin-bottom: 20px;
     background-color: var(--back-blue-color);
-    border-radius: 20px 0px 20px 0px;
+    border-radius: 15px 0px 20px 0px;
 }
 
 .time p{
@@ -550,110 +555,6 @@ body {
     z-index: 0;
 }
 
-.subject{
-    margin: 0px;
-    margin-top: 26px;
-    font: bold 48px 'NoirPro', sans-serif;
-    color: var(--main-blue-color);
-}
-
-.line-object{
-    display: flex;
-    margin-bottom: 2px;
-    position: relative;
-    margin: 0px;
-    margin-right: 2px;
-    padding-bottom: 12px;
-    padding-right: 12px;
-    width: max-content;
-    height: max-content;
-}
-
-.line{
-    display: flex;
-    overflow-y: hidden;
-    position: relative;
-    margin: 0px;
-    margin-right: 20px;
-    margin-top: 0px;
-    padding-bottom: 12px;
-    padding-right: 12px;
-    width: max-content;
-    height: max-content;
-}
-
-.select-week{
-    margin-top: 20px;
-    width: 220px;
-    font: 24px 'NoirPro-Medium', sans-serif;
-    color: var(--main-blue-color);  
-    border: none;
-}
-
-.hidden {
-    display: none;
-}
-
-.week-day{
-    margin: 10px 4px;
-    width: max-content;
-    font: bold 20px 'NoirPro', sans-serif;
-    color: var(--main-blue-color);
-}
-
-
-
-.circle {
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 70%;
-    margin: 10px 7px;
-    padding: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font: bold 20px 'NoirPro', sans-serif;
-    color: var(--main-blue-color);
-    border: 1px solid var(--main-blue-color);
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: white;
-}
-
-.circle.selected {
-    background-color: var(--main-blue-color);
-    color: white;
-}
-
-.rectangle {
-    top: 0;
-    left: 0;
-    /* width: 80%; */
-    height: 24px;
-    margin: 10px 4px;
-    padding: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font: bold 20px 'NoirPro', sans-serif;
-    color: var(--main-blue-color);
-    border: 1px solid var(--main-blue-color);
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: white;
-    white-space: nowrap;
-}
-
-.selected {
-    background-color: var(--main-blue-color);
-    color: white;
-}
-
-.week-day:active{
-    background-color: var(--main-blue-color);
-}
-
 .days{
     display: flex;
     overflow-y: hidden;
@@ -671,49 +572,6 @@ body {
     border-radius: 18px;
 }
 
-
-.time-lesson{
-    margin: 1px;
-    margin-top: -10px;
-    font: bold 28px 'NoirPro', sans-serif;
-    width: 200px;
-    height: 44px;
-    background-color: var(--white-color);
-    color: var(--main-blue-color);
-    Border: none;
-    outline: none;
-
-}
-
-.time-lesson::placeholder{
-    color: var(--main-blue-color);
-}
-
-.field-place{
-    font: 20px 'NoirPro', sans-serif;
-    margin-top: 10px;
-    margin-left: 6px;
-    width: 370px;
-    height: 40px;
-    background-color: var(--white-color);
-    border: 1px solid var(--main-blue-color);
-    border-radius: 10px;
-    color: var(--main-blue-color);
-}
-
-.field-place:focus {
-    outline: none !important;
-    border:1px solid var(--main-blue-color);
-}
-
-.select-place{
-    margin-top: -12px;
-    width: 135px;
-    font: bold 20px 'NoirPro', sans-serif;
-    color: var(--main-blue-color);  
-    border: none;
-}
-
 .select{
     margin-top: -23px;
     width: 130px;
@@ -722,129 +580,442 @@ body {
     border: none;
 }
 
-.field-number{
-    margin-top: 0px;
-    font: 20px 'NoirPro', sans-serif;
-    margin-left: 6px;
-    width: 100px;
-    height: 40px;
-    background-color: var(--white-color);
-    border: 1px solid var(--main-blue-color);
-    border-radius: 10px;
-    color: var(--main-blue-color);
+.schedule-lesson-change{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 0px;
+    padding: 0px;
+    background-color: var(--back-blue-color);
+    transition: all 0.3s;
 }
 
-.field-number:focus {
-    outline: none !important;
-    border:1px solid var(--main-blue-color);
+.schedule-lesson-change-div{
+    margin: 15px 0px 0px 0px;
 }
 
-.field-name{
-    margin-top: 0px;
-    font: 20px 'NoirPro', sans-serif;
-    margin-left: 6px;
-    width: 370px;
-    height: 40px;
-    background-color: var(--white-color);
-    border: 1px solid var(--main-blue-color);
-    border-radius: 10px;
-    color: var(--main-blue-color);
-}
-
-.field-name:focus {
-    outline: none !important;
-    border:1px solid var(--main-blue-color);
-}
-
-.field-homework{
-    margin-top: -20px;
-    width: 1000px;
-    height: 100px;
-    background-color: var(--white-color);
-    font: 20px 'NoirPro', sans-serif;
-    border: 1px solid var(--main-blue-color);
-    color: var(--main-blue-color);
-    border-radius: 10px;
-    resize: none;
-}
-
-.field-homework:focus {
-    outline: none !important;
-    border:1px solid var(--main-blue-color);
-}
-
-.lasts{
-    display: flex;
-    overflow-y: hidden;
-    margin-top: 20px;
-    width: max-content;
-}
-
-.last{
-    position: relative;
+.schedule-lesson-change-p1{
     margin: 0px;
-    margin-right: 270px;
-    margin-bottom: 10px;
-    max-width: 450px;
-    padding-bottom: 12px;
-    padding-right: 12px;
-    width: max-content;
-    height: max-content;
-}
-
-.cancel-button{
-    border-radius: 1px;
-    margin-top: 4px;
-    width: 150px;
-    height: 50px;
-    background-color: var(--white-color);
-    border-radius: 20px;
-    transition: 0.3s linear;
-    font: 300 24px 'NoirPro-Medium', sans-serif;
-    color: var(--main-blue-color);
-    border-color: var(--light-blue-color);
-}
-
-.cancel-button:hover{
-    background-color: var(--white-blue-color);
-    cursor: pointer;
-}
-
-.delete-button{
-    margin-left: -250px;
-    border: 0px;
-    margin-top: 4px;
-    width: 150px;
-    height: 50px;
-    background-color: var(--red-color);
-    border-radius: 20px;
-    transition: 0.3s linear;
-    font: 300 24px 'NoirPro-Medium', sans-serif;
+    font: bold 36px 'NoirPro', sans-serif;
     color: var(--white-color);
 }
 
-.delete-button:hover{
+.schedule-lesson-change-p2{
+    margin: 0px;
+    font: bold 32px 'NoirPro', sans-serif;
+    color: var(--white-color);
+}
+
+.schedule-lesson-change-p3{
+    margin: 0px;
+    font: 24px 'NoirPro', sans-serif;
+    color: var(--white-color);
+}
+
+.schedule-lesson-change-button{
+    margin: 30px 0px 0px 0px;
+    width: 170px;
+    height: 50px;
+    background-color: var(--transparent-color);
+    border: 4px solid var(--white-color);
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.schedule-lesson-change-button p{
+    margin: 6px;
+    font: 500 24px 'NoirPro', sans-serif;
+    color: var(--white-color);
+}
+
+.schedule-weeks{
+    margin: 30px 0px 0px 0px;
+    display: flex;
+}
+
+.schedule-weeks-arrow{
+    margin: 0px;
+    padding: 15px 0px 0px 0px;
+    width: 50px;
+    height: 35px;
+    border-radius: 40px;
+    background-color: var(--light-light-gray-color);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.schedule-weeks-arrow:hover{
+    background-color: var(--light-gray-color);
+}
+
+.schedule-weeks-number_left{
+    margin: 7px 900px 0px 15px;
+    width: 30px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.schedule-weeks-number_right{
+    margin: 7px 15px 0px 0px;
+    width: 30px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+/* add lesson */
+
+.add-subject{
+    width: 970px;
+    margin: 33px 0px 0px 0px;
+    font: bold 48px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: none;
+    outline: none;
+}
+
+.add-week-options{
+    margin: 20px 0px 0px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: none;
+    outline: none;
+}
+
+.add-week{
+    margin: 20px 0px 0px 0px;
+    height: 45px;
+    display: flex;
+}
+
+.add-week-day{
+    margin: 0px;
+    font: 500 normal 32px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: none;
+    outline: none;
+}
+
+.add-button{
+    margin: 0px 20px 0px 0px;
+    border: 1px solid var(--main-blue-color);
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s linear;
+    cursor: pointer;
+}
+
+.add-button p{
+    margin: 3px 10px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-week-days{
+    margin: 0px 15px 0px 0px;
+    width: 55px;
+    height: 45px;
+    border: 1px solid var(--main-blue-color);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.add-week-days p{
+    text-align: center;
+    margin: 5px 0px 0px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-week-week{
+    margin: 0px;
+    padding-left: 10px;
+    width: 50px;
+    height: 40px;
+    font: 500 normal 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
+    outline: none;
+}
+
+.add-weeks{
+    margin: 0px;
+    padding-left: 10px;
+    width: 340px;
+    height: 40px;
+    font: 500 normal 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
+    outline: none;
+}
+
+.add-weeks::placeholder{
+    color: var(--back-blue-color);
+}
+
+.add-time{
+    margin: 20px 0px 0px 0px;
+    height: 40px;
+    display: flex;
+}
+
+.add-timer{
+    font: bold 32px 'Inter', sans-serif;
+    color: var(--main-blue-color);
+    border: none;
+    outline: none;
+}
+
+.add-timer::-webkit-calendar-picker-indicator{
+    display: none;
+    -webkit-appearance: none;
+}
+
+.add-time-spliter{
+    margin: 0px;
+    font: bold 32px 'Inter', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-type{
+    margin: 20px 0px 0px 0px;
+    display: flex;
+}
+
+.add-type-button{
+    margin: 0px 12px 0px 0px;
+    border: 1px solid var(--main-blue-color);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.add-type-button p{
+    text-align: center;
+    margin: 5px 21px 5px 21px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-short-input{
+    margin: 0px 0px 0px 0px;
+    padding-left: 10px;
+    width: 340px;
+    height: 40px;
+    font: 500 normal 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
+    outline: none;
+}
+
+.add-short-input::placeholder{
+    color: var(--back-blue-color);
+}
+
+.add-place{
+    margin: 20px 0px 0px 0px;
+}
+
+.add-place-options{
+    margin: 4px 27px 0px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: none;
+    outline: none;
+}
+
+.add-teacher{
+    margin: 20px 0px 0px 0px;
+    display: flex;
+}
+
+.add-text{
+    margin: 0px 17px 0px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-textarea{
+    padding: 0px 10px;
+    width: 970px;
+    height: 100px;
+    font: normal 20px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+    border: 1px solid var(--main-blue-color);
+    border-radius: 10px;
+    outline: none;
+    resize: none;
+}
+
+.add-cancle{
+    margin: 0px 30px 0px 0px;
+    padding: 0px;
+    width: 170px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid var(--main-blue-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
+
+.add-cancle:hover{
+    background-color: var(--light-gray-color);
+    cursor: pointer;
+}
+
+.add-cancle p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-delete1{
+    margin: 0px 30px 0px 0px;
+    padding: 0px;
+    width: 170px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: var(--red-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
+
+.add-delete1:hover{
     background-color: var(--pink-color);
     cursor: pointer;
 }
 
-.save-button{
-    margin-left: 145px;
-    border: 0px;
-    margin-top: 4px;
-    width: 150px;
-    height: 50px;
-    background-color: var(--main-blue-color);
-    border-radius: 20px;
-    transition: 0.3s linear;
-    font: 300 24px 'NoirPro-Medium', sans-serif;
+.add-delete1 p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
     color: var(--white-color);
 }
 
+.add-save1{
+    margin: 0px 0px 0px 600px;
+    padding: 0px;
+    width: 170px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: var(--main-blue-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
 
-.save-button:hover{
-    background-color: var(--white-blue-color);
+.add-save1:hover{
+    background-color: var(--light-blue-color);
     cursor: pointer;
+}
+
+.add-save1 p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--white-color);
+}
+
+.add-delete2{
+    margin: 0px 96px 0px 0px;
+    padding: 0px;
+    width: 425px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid var(--red-color);
+    background-color: var(--white-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
+
+.add-delete2:hover{
+    background-color: var(--pink-color);
+    cursor: pointer;
+}
+
+.add-delete2 p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--red-color);
+}
+
+.add-save2{
+    margin: 0px;
+    padding: 0px;
+    width: 450px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid var(--main-blue-color);
+    background-color: var(--white-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
+
+.add-save2:hover{
+    background-color: var(--light-blue-color);
+    cursor: pointer;
+}
+
+.add-save2 p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-delete3{
+    margin: 0px 510px 0px 0px;
+    padding: 0px;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid var(--red-color);
+    background-color: var(--white-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
+
+.add-delete3:hover{
+    background-color: var(--pink-color);
+    cursor: pointer;
+}
+
+.add-delete3 p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--red-color);
+}
+
+.add-save3{
+    margin: 0px;
+    padding: 0px;
+    width: 260px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid var(--main-blue-color);
+    background-color: var(--white-color);
+    text-align: center;
+    transition: 0.3s linear;
+}
+
+.add-save3:hover{
+    background-color: var(--light-blue-color);
+    cursor: pointer;
+}
+
+.add-save3 p{
+    margin: 8px 0px;
+    font: 500 normal 24px 'NoirPro', sans-serif;
+    color: var(--main-blue-color);
+}
+
+.add-margin{
+    margin: 20px 0px 0px 0px;
+}
+
+.add-buttons{
+    margin: 20px 0px 0px 0px;
+    display: flex;
 }
 
 /* profile */
