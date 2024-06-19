@@ -14,8 +14,7 @@ function send_group(){
     }
 }
 
-send("getUniversities", true, {}, function(respons){
-    let data = JSON.parse(respons);
+send("getUniversities", true, {}, function(data){
     for (university of data.data){
         let option = document.createElement('option');
         option.value = university.id;
@@ -28,8 +27,7 @@ university_select.addEventListener("change", function(){
     if (university_select.value !== 0){
         send("getFaculties", true, {
             "university_id": university_select.value
-        }, function(respons){
-            let data = JSON.parse(respons);
+        }, function(data){
             for (faculty of data.data){
                 let option = document.createElement('option');
                 option.value = faculty.id;
@@ -45,8 +43,7 @@ faculty_select.addEventListener("change", function(){
         send("getGroups", true, {
             "university_id": university_select.value,
             "faculty_id": faculty_select.value
-        }, function(respons){
-            let data = JSON.parse(respons);
+        }, function(data){
             for (group of data.data){
                 let option = document.createElement('option');
                 option.value = group.id;

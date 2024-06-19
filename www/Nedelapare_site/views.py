@@ -15,7 +15,12 @@ def registration(request):
 
 
 def waiting(request):
-    return render(request, 'waiting.html', {"email": request.GET.get("email", "")})
+    msg_id = int(request.GET.get("msg", 0))
+    context = {"msg": msg_id}
+    if msg_id == 0:
+        context.update({"email": request.GET.get("email", "")})
+    print(context)
+    return render(request, 'waiting.html', context)
 
 
 def done_reg(request):

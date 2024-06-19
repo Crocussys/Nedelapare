@@ -32,7 +32,17 @@ class Registration(APIView):
         else:
             user = CustomUser.objects.get(email=validated_data["email"])
         user.is_active = False
-        send_email(user, thread=False)
+        send_email(user)
+        if user.position != 0:
+            serializer = RequestForPositionConfirmationSerializer(data={
+                "user_id": user.id,
+                "email": user.email,
+                "position": user.position
+            })
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                raise
         return Response(status=status.HTTP_200_OK)
 
 
@@ -59,7 +69,11 @@ class Login(knox_views.LoginView):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def is_login(request):
-    return Response(status=status.HTTP_200_OK)
+    user = request.user
+    if user.confirmed_position:
+        return Response(status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_423_LOCKED)
 
 
 @api_view(['GET', 'POST'])
@@ -163,12 +177,14 @@ def get_lessons(request):
                 "error_message": "Группа не найдена"
             }, status=status.HTTP_404_NOT_FOUND)
         lesson_queryset = Lesson.objects.filter(group=group.id)
-    else:
+    elif user.position == 1:
         lesson_queryset = Lesson.objects.filter(teacher_id=user.id)
+    else:
+        raise
     for i in range(days_count + 1):
         day = (date.fromisoformat(start) + timedelta(days=i)).isoformat()
         lessons = list()
-        for lesson in sorted(lesson_queryset.filter(group=group.id, date=day), key=lambda les: les.time_start):
+        for lesson in sorted(lesson_queryset.filter(date=day), key=lambda les: les.time_start):
             if lesson.subgroup is not None:
                 subgroup = Subgroup.objects.get(id=lesson.subgroup)
                 subgroup = {
@@ -595,6 +611,7 @@ def change_lessons(request):
                 try:
                     next_lesson = Lesson.objects.get(id=next_id)
                     next_id = next_lesson.next
+                    data.update({"date": next_lesson.date})
                     next_lesson_serializer = LessonSerializer(next_lesson, data=data)
                     if next_lesson_serializer.is_valid(raise_exception=False):
                         next_lesson_serializer.save()
@@ -606,6 +623,7 @@ def change_lessons(request):
                 try:
                     prev_lesson = Lesson.objects.get(id=prev_id)
                     prev_id = prev_lesson.previous
+                    data.update({"date": prev_lesson.date})
                     prev_lesson_serializer = LessonSerializer(prev_lesson, data=data)
                     if prev_lesson_serializer.is_valid(raise_exception=False):
                         prev_lesson_serializer.save()
@@ -616,6 +634,7 @@ def change_lessons(request):
                 try:
                     next_lesson = Lesson.objects.get(id=next_id)
                     next_id = next_lesson.next
+                    data.update({"date": next_lesson.date})
                     next_lesson_serializer = LessonSerializer(next_lesson, data=data)
                     if next_lesson_serializer.is_valid(raise_exception=False):
                         next_lesson_serializer.save()

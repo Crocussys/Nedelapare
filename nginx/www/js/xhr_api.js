@@ -7,6 +7,11 @@ function send(method, is_authorization = false, data, callback = function(){}){
     }
     xhr.send(JSON.stringify(data));
     xhr.onload = function(){
-        callback(xhr.response, xhr.status);
+        let response = xhr.response;
+        let status = xhr.status;
+        if (status < 500 && response !== ""){
+            response = JSON.parse(xhr.response)
+        }
+        callback(response, status);
     };
 }

@@ -50,21 +50,11 @@ menu_int.addEventListener("mouseleave", function(){
 });
 
 function logout(){
-    let xhr_logout = new XMLHttpRequest();
-    xhr_logout.open("POST", "../api/logout/");
-    xhr_logout.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr_logout.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
-    xhr_logout.send();
-    xhr_logout.onload = function() {
+    send("logout", true, {}, function(){
         window.location.href = "/"
-    };
+    })
 }
 
-let xhr_getMe = new XMLHttpRequest();
-xhr_getMe.open("POST", "../api/getMe/");
-xhr_getMe.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhr_getMe.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
-xhr_getMe.send();
-xhr_getMe.onload = function() {
-    username_html.innerHTML = JSON.parse(xhr_getMe.response).name;
-};
+send("getMe", true, {}, function(data, status){
+    username_html.innerHTML = data.name;
+})

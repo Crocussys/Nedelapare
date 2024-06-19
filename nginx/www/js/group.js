@@ -1,10 +1,4 @@
-let xhr_group_getGroup = new XMLHttpRequest();
-xhr_group_getGroup.open("POST", "../api/getGroup/");
-xhr_group_getGroup.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhr_group_getGroup.setRequestHeader("Authorization", "Token " + localStorage.getItem("token"));
-xhr_group_getGroup.send();
-xhr_group_getGroup.onload = function() {
-    let data = JSON.parse(xhr_group_getGroup.response)
+send("getGroup", true, {}, function(data, status){
     document.getElementById('group-name').innerHTML = data.name;
     document.getElementById('university').innerHTML = data.university;
     document.getElementById('faculty').innerHTML = data.faculty;
@@ -42,4 +36,4 @@ xhr_group_getGroup.onload = function() {
         group_student.append(delete_link);
         students.append(group_student);
     }
-};
+})

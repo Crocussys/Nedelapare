@@ -9,14 +9,23 @@ var date = new Date();
 var monday_first_week = 0;
 var isLoading = false;
 var week = 0;
+var position = -1;
 
-send("getGroup", true, {}, get_group)
+send("getMe", true, {}, start_calback)
 
-function get_group(response, status){
+function start_calback(data, status){
+    position = data.position;
+    if (position === 0){
+        send("getGroup", true, {}, get_group)
+    }else if (position === 1){
+        click_week(0);
+    }
+}
+
+function get_group(data, status){
     if (status === 404){
         location.href = "/group_change"
     }else{
-        let data = JSON.parse(response)
         group_title.innerHTML = data.name;
         monday_first_week = Date.parse(data.monday_first_week);
         week = Math.ceil((date - monday_first_week) / 86400000 / 7);
@@ -27,8 +36,7 @@ function get_group(response, status){
 function get_lesson(id){
     send("getLesson", true, {
         "id": id
-    }, function(response, status){
-        let data = JSON.parse(response);
+    }, function(data, status){
         document.getElementById("change-name").innerHTML = data["subject"];
         let time_start = data["time_start"];
         let time_end = data["time_end"];
@@ -52,12 +60,25 @@ function click_week(x){
     }else if (x === 1){
         week += 1;
     }
-    let start = new Date(monday_first_week + (week - 1) * 7 * 24 * 60 * 60 * 1000);
-    let end = new Date(monday_first_week + week * 7 * 24 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000);
-    let start_str = start.toISOString();
-    let end_str = end.toISOString();
-    document.getElementById("prev_week").innerHTML = week - 1;
-    document.getElementById("next_week").innerHTML = week + 1;
+    let start_str = "";
+    let end_str = "";
+    if (position === 0){
+        let start = new Date(monday_first_week + (week - 1) * 7 * 24 * 60 * 60 * 1000);
+        let end = new Date(monday_first_week + week * 7 * 24 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000);
+        start_str = start.toISOString();
+        end_str = end.toISOString();
+        document.getElementById("prev_week").innerHTML = week - 1;
+        document.getElementById("next_week").innerHTML = week + 1;
+    }else if (position === 1){
+        let today_day = date.getDay() - 1;
+        if (today_day < 0){
+            today_day += 7;
+        }
+        let start = new Date(date - today_day * 24 * 60 * 60 * 1000 + week * 7 * 24 * 60 * 60 * 1000);
+        let end = new Date(date - (today_day + 1) * 24 * 60 * 60 * 1000 + (week + 1) * 7 * 24 * 60 * 60 * 1000);
+        start_str = start.toISOString();
+        end_str = end.toISOString();
+    }
     send("getLessons", true, {
         "start": start_str.slice(0, start_str.indexOf("T")),
         "end": end_str.slice(0, end_str.indexOf("T"))
@@ -69,10 +90,10 @@ function restore(){
     lesson_change.style.padding = "0px";
 }
 
-function get_lessons(response, status) {
+function get_lessons(data, status) {
     schedule.innerHTML = "";
     var i = 1;
-    for (let day of JSON.parse(response)){
+    for (let day of data){
         let day_html = document.createElement("div");
         day_html.className = "day";
         let p1 = document.createElement("p");

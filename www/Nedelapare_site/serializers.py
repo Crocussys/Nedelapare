@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 
 from Nedelapare_site.models import User as CustomUser, Student, Teacher, University, Faculty, UniversityToFaculty, \
-    Lesson, Group as ClassGroup, Subject
+    Lesson, Group as ClassGroup, Subject, RequestForPositionConfirmation
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,6 +33,10 @@ class CreateUserSerializer(serializers.ModelSerializer):
         position = attrs.get('position', 0)
         if position < 0 or position > 2:
             raise serializers.ValidationError('Недопустимое значение')
+        if position == 0:
+            attrs["confirmed_position"] = True
+        else:
+            attrs["confirmed_position"] = False
         return attrs, exist_flag
 
     def create(self, validated_data):
@@ -107,11 +111,14 @@ class LessonSerializer(serializers.ModelSerializer):
         model = Lesson
         fields = '__all__'
 
-    def get_date(self):
-        return self.data.get("date")
-
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
+        fields = '__all__'
+
+
+class RequestForPositionConfirmationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequestForPositionConfirmation
         fields = '__all__'

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="container">
-            <input class="add-subject" id="subject" value="Новый предмет"><br>
+            <input class="add-subject" id="subject" value="Алгебра"><br>
             <select class="add-week-options" id="week-select">
                 <option value="0">Единожды</option>
                 <option selected value="1">Каждую неделю</option>
@@ -93,7 +93,6 @@
             }
 
             function send_callback(response, status){
-                response = JSON.parse(response);
                 let type_of_work = "";
                 if (type_of_work_selected < 3){
                     type_of_work = ["Лекция", "Практика", "Лаб. работа"][type_of_work_selected];
@@ -157,8 +156,7 @@
                 send("addLessons", true, {
                     "lessons": lessons
                 }, () => {})
-                // location.href='/schedule';
-                console.log("Сохранил");
+                location.href='/schedule';
             }
         </script>
     </body>

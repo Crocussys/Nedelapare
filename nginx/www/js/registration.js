@@ -9,23 +9,19 @@ function load(){
         position = 1;
     }
     if (password.value === password2.value){
-        let xhr = new XMLHttpRequest();
         let email = document.getElementById('email').value;
-        xhr.open("POST", "../api/reg/");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify({
+        send("reg", false, {
             "email": email,
             "name": document.getElementById('name').value,
             "password": password.value,
             "position": position
-        }));
-        xhr.onload = function() {
-            if (xhr.status === 200){
-                location.href = '../wait?email=' + email;
+        }, function(data, status){
+            if (status === 200){
+                location.href = '../wait?msg=0&email=' + email;
             }else{
-                console.log(JSON.parse(xhr.response));
+                console.log(data);
             }
-        }
+        })
     }else{
         console.log("Пароли не совпадают");
     }

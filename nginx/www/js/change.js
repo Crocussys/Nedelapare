@@ -2,8 +2,7 @@ var date_changed = true;
 
 send("getLesson", true, {
     "id": params.get("id")
-}, function(response, status){
-    let data = JSON.parse(response);
+}, function(data, status){
     subject.value = data["subject"];
     document.getElementById('one_day').value = data["date"];
     start_time.value = data["time_start"];
@@ -53,7 +52,6 @@ function delete_lessons(x){
         "id": params.get("id"),
         "others": x
     }, function(){
-        // location.href='/schedule';
-        console.log("Удалил");
+        location.href='/schedule';
     })
 }

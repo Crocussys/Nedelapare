@@ -12,8 +12,15 @@
                 <img src="{% static 'img/logo.svg' %}">
             </div>
             <img class="registration-img" src="{% static 'img/waiting.svg' %}">
+            {% if msg == 0 %}
             <p class="waiting-message">На почту {{ email }} отправлено письмо. Перейдите по ссылке в письме для подтверждения почты и завершения регистрации.</p>
             <p class="waiting-message2">Это окно можно закрыть</p>
+            {% endif %}{% if msg == 1 %}
+            <p class="waiting-message">Ваш статус ещё не подтверждён администратором. Пожалуйста дождитесь подтверждения.</p>
+            <div class="waiting-button" onclick="window.location.href = '/schedule'">
+                <p>Проверить</p>
+            </div>
+            {% endif %}
         </div>
     </body>
 </html>

@@ -25,6 +25,7 @@ class User(AbstractBaseUser):
     password = models.CharField(max_length=128)
     name = models.CharField(max_length=256)
     position = models.PositiveSmallIntegerField()
+    confirmed_position = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name', 'position']
@@ -115,3 +116,9 @@ class Subject(models.Model):
 class StudentToSubgroup(models.Model):
     user = models.BigIntegerField()
     subgroup = models.BigIntegerField()
+
+
+class RequestForPositionConfirmation(models.Model):
+    user_id = models.BigIntegerField()
+    email = models.EmailField(max_length=254)
+    position = models.PositiveSmallIntegerField()
