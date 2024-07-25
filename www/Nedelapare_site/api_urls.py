@@ -6,9 +6,9 @@ from . import api
 urlpatterns = [
     path('reg/', api.Registration.as_view()),
     path('login/', api.Login.as_view()),
-    path('is_login/', api.is_login),
+    path('isLogin/', api.is_login),
     path('logout/', LogoutView.as_view()),
-    path('logout-all/', LogoutAllView.as_view()),
+    path('logoutAll/', LogoutAllView.as_view()),
     path('getMe/', api.get_me),
     path('getGroup/', api.get_group),
     path('getLessons/', api.get_lessons),
